@@ -8,9 +8,12 @@ class Day2
     static readonly string[] Draw = new string[3] { "A X", "B Y", "C Z" };
     static readonly string[] Lose = new string[3] { "A Z", "B X", "C Y" };
 
-    public static void Part1()
-    {
+    const int WinPoints = 6;
+    const int DrawPoints = 3;
+    const int LosePoints = 0;
 
+    public static int Part1()
+    {
         var fightPoints = new Dictionary<string, int> {
             {"A X", 3}
         };
@@ -32,20 +35,23 @@ class Day2
 
             if (Day2.Win.Contains(round))
             {
-                score += 6;
+                score += WinPoints;
             }
             else if (Day2.Draw.Contains(round))
             {
-                score += 3;
+                score += DrawPoints;
+            } else {
+                score += LosePoints;
             }
+
             score += points[you];
         }
 
         Debug.Assert(score == 11873);
-        Console.WriteLine(score);
+        return score;
     }
 
-    public static void Part2()
+    public static int Part2()
     {
         var points = new Dictionary<string, int> {
             {"X", 1},
@@ -66,17 +72,17 @@ class Day2
             if (you == "X")
             {
                 a = Day2.Lose;
-                score += 0;
+                score += LosePoints;
             }
             else if (you == "Y")
             {
                 a = Day2.Draw;
-                score += 3;
+                score += DrawPoints;
             }
             else
             {
                 a = Day2.Win;
-                score += 6;
+                score += WinPoints;
             }
 
             foreach (var combo in a)
@@ -91,6 +97,6 @@ class Day2
         }
 
         Debug.Assert(score == 12014);
-        Console.WriteLine(score);
+        return score;
     }
 }
