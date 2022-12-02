@@ -3,7 +3,7 @@ public class Day1
 {
     const string InputFilePath = "./solutions/inputs/day1";
 
-    public static void Part1()
+    public static int Part1()
     {
         int maxCalories = int.MinValue;
         int currentCalories = 0;
@@ -23,10 +23,10 @@ public class Day1
             }
         }
 
-        Console.WriteLine(maxCalories);
+        return (maxCalories);
     }
 
-    public static void Part2()
+    public static int Part2()
     {
         int currentCalories = 0;
         List<int> elves = new List<int>();
@@ -48,6 +48,6 @@ public class Day1
 
         elves.Sort();
         elves.Reverse();
-        Console.WriteLine(elves[0] + elves[1] + elves[2]);
+        return (elves[0] + elves[1] + elves[2]);
     }
 }
