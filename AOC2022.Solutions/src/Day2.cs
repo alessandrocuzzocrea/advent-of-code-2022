@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 class Day2
 {
-    const string InputFilePath = "./solutions/inputs/day2";
+    const string InputFilePath = "./src/inputs/day2";
 
     static readonly string[] Win = new string[3] { "A Y", "B Z", "C X" };
     static readonly string[] Draw = new string[3] { "A X", "B Y", "C Z" };

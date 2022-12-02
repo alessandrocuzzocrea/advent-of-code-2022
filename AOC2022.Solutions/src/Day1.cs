@@ -1,7 +1,7 @@
 
 public class Day1
 {
-    const string InputFilePath = "./solutions/inputs/day1";
+    const string InputFilePath = "./src/inputs/day1";
 
     public static int Part1()
     {
