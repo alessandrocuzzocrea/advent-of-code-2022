@@ -1,6 +1,6 @@
 class Day5
 {
-    const string InputFilePath = "./solutions/inputs/day5";
+    const string InputFilePath = "./inputs/day5";
 
     public static string Part1()
     {
