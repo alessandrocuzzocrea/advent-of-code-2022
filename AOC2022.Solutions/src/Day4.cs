@@ -26,7 +26,7 @@ public class Day4
 
         public bool Overlaps(Section other)
         {
-            if (start <= other.end && end >= other.end)
+            if (start <= other.end && end >= other.start)
             {
                 return true;
             }
