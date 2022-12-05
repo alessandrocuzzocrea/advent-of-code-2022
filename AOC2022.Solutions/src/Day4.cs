@@ -1,6 +1,38 @@
 public class Day4
 {
-    const string InputFilePath = "./inputs/day4";
+    public class Section
+    {
+        int start { get; }
+        int end { get; }
+        public Section(string s)
+        {
+            start = int.Parse(s.Split('-')[0]);
+            end = int.Parse(s.Split('-')[1]);
+        }
+
+        public bool FullyOverlaps(Section other)
+        {
+            if (start <= other.start && end >= other.end)
+            {
+                return true;
+            }
+            else if (other.start <= start && other.end >= end)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool Overlaps(Section other)
+        {
+            if (start <= other.end && end >= other.end)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
 
     public static int Part1(string inputFilePath)
     {
@@ -9,20 +41,10 @@ public class Day4
         var pairs = File.ReadLines(inputFilePath);
         foreach (var pair in pairs)
         {
-            var section1 = pair.Split(',')[0];
-            var section2 = pair.Split(',')[1];
+            var section1 = new Section(pair.Split(',')[0]);
+            var section2 = new Section(pair.Split(',')[1]);
 
-            var section1_start = int.Parse(section1.Split('-')[0]);
-            var section1_end = int.Parse(section1.Split('-')[1]);
-
-            var section2_start = int.Parse(section2.Split('-')[0]);
-            var section2_end = int.Parse(section2.Split('-')[1]);
-
-            if (section1_start <= section2_start && section1_end >= section2_end)
-            {
-                fullyOverlaps += 1;
-            }
-            else if (section2_start <= section1_start && section2_end >= section1_end)
+            if (section1.FullyOverlaps(section2))
             {
                 fullyOverlaps += 1;
             }
@@ -38,16 +60,10 @@ public class Day4
         var pairs = File.ReadLines(inputFilePath);
         foreach (var pair in pairs)
         {
-            var section1 = pair.Split(',')[0];
-            var section2 = pair.Split(',')[1];
+            var section1 = new Section(pair.Split(',')[0]);
+            var section2 = new Section(pair.Split(',')[1]);
 
-            var section1_start = int.Parse(section1.Split('-')[0]);
-            var section1_end = int.Parse(section1.Split('-')[1]);
-
-            var section2_start = int.Parse(section2.Split('-')[0]);
-            var section2_end = int.Parse(section2.Split('-')[1]);
-
-            if (section1_start <= section2_end && section1_end >= section2_start)
+            if (section1.Overlaps(section2))
             {
                 overlaps += 1;
             }
