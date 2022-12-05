@@ -7,12 +7,12 @@ public class UnitTestDay2
     [Fact]
     public void Part1_IsCorrect_WhenUsingInputFile()
     {
-        Assert.Equal(Day2.Part1("./inputs/day2"), 11873);
+        Assert.Equal(11873, Day2.Part1("./inputs/day2"));
     }
 
     [Fact]
     public void Part1_IsCorrect_WhenUsingExampleInputFile()
     {
-        Assert.Equal(Day2.Part1("./inputs/day2-example"), 15);
+        Assert.Equal(15, Day2.Part1("./inputs/day2-example"));
     }
 }
