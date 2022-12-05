@@ -12,4 +12,8 @@ Console.WriteLine("--- Day 3: Rucksack Reorganization ---");
 Console.WriteLine($"Part 1: {Day3.Part1()}");
 Console.WriteLine($"Part 2: {Day3.Part2()}");
 
+Console.WriteLine("--- Day 4: Camp Cleanup ---");
+Console.WriteLine($"Part 1: {Day4.Part1()}");
+Console.WriteLine($"Part 2: {Day4.Part2()}");
+
 Console.WriteLine("Have a good one! 👋");
