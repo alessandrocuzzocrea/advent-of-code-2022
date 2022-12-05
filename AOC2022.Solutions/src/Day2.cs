@@ -1,8 +1,10 @@
 using System.Diagnostics;
 
+namespace AOC2022.Solutions;
+
 class Day2
 {
-    const string InputFilePath = "./src/inputs/day2";
+    const string InputFilePath = "./inputs/day2";
 
     static readonly string[] Win = new string[3] { "A Y", "B Z", "C X" };
     static readonly string[] Draw = new string[3] { "A X", "B Y", "C Z" };

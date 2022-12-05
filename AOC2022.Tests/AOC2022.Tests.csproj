@@ -22,7 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AOC2022.Solutions\aoc2022.csproj" />
+    <ProjectReference Include="..\AOC2022.Solutions\AOC2022.Solutions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\AOC2022.Solutions\inputs\*.*">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

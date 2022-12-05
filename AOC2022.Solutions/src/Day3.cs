@@ -1,8 +1,10 @@
 using System.Diagnostics;
 
+namespace AOC2022.Solutions;
+
 class Day3
 {
-    const string InputFilePath = "./src/inputs/day3";
+    const string InputFilePath = "./inputs/day3";
 
     public static int Part1()
     {

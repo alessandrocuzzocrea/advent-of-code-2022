@@ -1,7 +1,9 @@
+namespace AOC2022.Solutions;
 
 public class Day1
 {
-    const string InputFilePath = "./src/inputs/day1";
+    // const string InputFilePath = "/Users/ale/dev/advent-of-code-2022/AOC2022.Solutions/src/inputs/day1";
+    const string InputFilePath = "./inputs/day1";
 
     public static int Part1()
     {

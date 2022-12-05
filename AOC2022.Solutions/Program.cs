@@ -1,3 +1,5 @@
+using AOC2022.Solutions;
+
 Console.WriteLine("🎄Advent of Code 2022🎄");
 
 Console.WriteLine("--- Day 1: Calorie Counting ---");
