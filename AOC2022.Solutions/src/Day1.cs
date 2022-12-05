@@ -1,9 +1,8 @@
+namespace AOC2022.Solutions;
 
 public class Day1
 {
-    const string InputFilePath = "./solutions/inputs/day1";
-
-    public static int Part1()
+    public static int Part1(string InputFilePath)
     {
         int maxCalories = int.MinValue;
         int currentCalories = 0;
@@ -26,7 +25,7 @@ public class Day1
         return (maxCalories);
     }
 
-    public static int Part2()
+    public static int Part2(string InputFilePath)
     {
         int currentCalories = 0;
         List<int> elves = new List<int>();

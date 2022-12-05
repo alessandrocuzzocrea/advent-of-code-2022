@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC2022.Solutions", "AOC2022.Solutions\AOC2022.Solutions.csproj", "{FDA43F85-DA93-47E1-ACB7-0787DEB3254B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOC2022.Tests", "AOC2022.Tests\AOC2022.Tests.csproj", "{FE0B09BB-4307-4462-9FB1-B66946DC00C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDA43F85-DA93-47E1-ACB7-0787DEB3254B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA43F85-DA93-47E1-ACB7-0787DEB3254B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA43F85-DA93-47E1-ACB7-0787DEB3254B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA43F85-DA93-47E1-ACB7-0787DEB3254B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE0B09BB-4307-4462-9FB1-B66946DC00C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE0B09BB-4307-4462-9FB1-B66946DC00C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE0B09BB-4307-4462-9FB1-B66946DC00C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE0B09BB-4307-4462-9FB1-B66946DC00C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
