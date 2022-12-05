@@ -1,19 +1,20 @@
-class Day5
+public class Day5
 {
     const string InputFilePath = "./inputs/day5";
 
-    public static string Part1()
+    public static string Part1(string inputFilePath)
     {
         var stacks = new List<Stack<char>>();
         stacks.Add(new Stack<char>());
         var lastLineIndex = 0;
 
-        var pairs = File.ReadLines(InputFilePath).ToArray();
+        var pairs = File.ReadLines(inputFilePath).ToArray();
         for (var i = 0; i < pairs.Length; i++)
         {
             if (pairs[i] == string.Empty)
             {
                 lastLineIndex = i - 1;
+                break;
             }
         }
 
@@ -55,17 +56,17 @@ class Day5
         {
             res = res + stacks[i].Pop();
         }
-        
+
         return res;
     }
 
-    public static string Part2()
+    public static string Part2(string inputFilePath)
     {
         var stacks = new List<Stack<char>>();
         stacks.Add(new Stack<char>());
         var lastLineIndex = 0;
 
-        var pairs = File.ReadLines(InputFilePath).ToArray();
+        var pairs = File.ReadLines(inputFilePath).ToArray();
         for (var i = 0; i < pairs.Length; i++)
         {
             if (pairs[i] == string.Empty)
@@ -122,7 +123,7 @@ class Day5
         {
             res = res + stacks[i].Pop();
         }
-        
+
         return res;
     }
 }
