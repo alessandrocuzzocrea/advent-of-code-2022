@@ -7,8 +7,8 @@ Console.WriteLine($"Part 1: {Day1.Part1("./inputs/day1")}");
 Console.WriteLine($"Part 2: {Day1.Part2("./inputs/day1")}");
 
 Console.WriteLine("--- Day 2: Rock Paper Scissors ---");
-Console.WriteLine($"Part 1: {Day2.Part1()}");
-Console.WriteLine($"Part 2: {Day2.Part2()}");
+Console.WriteLine($"Part 1: {Day2.Part1("./inputs/day2")}");
+Console.WriteLine($"Part 2: {Day2.Part2("./inputs/day2")}");
 
 Console.WriteLine("--- Day 3: Rucksack Reorganization ---");
 Console.WriteLine($"Part 1: {Day3.Part1()}");

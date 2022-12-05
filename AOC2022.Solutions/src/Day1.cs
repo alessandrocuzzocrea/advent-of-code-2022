@@ -2,12 +2,12 @@ namespace AOC2022.Solutions;
 
 public class Day1
 {
-    public static int Part1(string InputFilePath)
+    public static int Part1(string inputFilePath)
     {
         int maxCalories = int.MinValue;
         int currentCalories = 0;
 
-        var lines = File.ReadAllLines(InputFilePath).ToList();
+        var lines = File.ReadAllLines(inputFilePath).ToList();
         lines.Add("");
         foreach (string line in lines)
         {
