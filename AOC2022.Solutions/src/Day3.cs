@@ -1,12 +1,10 @@
-class Day3
+public class Day3
 {
-    const string InputFilePath = "./inputs/day3";
-
-    public static int Part1()
+    public static int Part1(string inputFilePath)
     {
         var prioritySum = 0;
 
-        var rucksacks = File.ReadLines(InputFilePath);
+        var rucksacks = File.ReadLines(inputFilePath);
         foreach (var rucksack in rucksacks)
         {
             var comp1 = rucksack.Substring(0, (int)rucksack.Length / 2).ToCharArray();
@@ -34,10 +32,10 @@ class Day3
         return prioritySum;
     }
 
-    public static int Part2() {
+    public static int Part2(string inputFilePath) {
         var prioritySum = 0;
 
-        var rucksacks = File.ReadLines(InputFilePath).ToArray();
+        var rucksacks = File.ReadLines(inputFilePath).ToArray();
         for (var i = 0; i < rucksacks.Length; i += 3)
         {
             var ruck1 = rucksacks[i];
