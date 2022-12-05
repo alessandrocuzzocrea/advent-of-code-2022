@@ -12,39 +12,21 @@ public class Day2
     const int DrawPoints = 3;
     const int LosePoints = 0;
 
-    public static int Part1(string inputFilePath)
-    {
-        var fightPoints = new Dictionary<string, int> {
-            {"A X", 3}
-        };
-
-        var points = new Dictionary<string, int> {
+    static readonly Dictionary<string, int> shapePoints = new Dictionary<string, int> {
             {"X", 1},
             {"Y", 2},
             {"Z", 3}
-        };
+    };
 
+    public static int Part1(string inputFilePath)
+    {
         var score = 0;
 
         var rounds = File.ReadLines(inputFilePath);
         foreach (var round in rounds)
         {
-            var roundSplit = round.Split(' ');
-            var opponent = roundSplit[0];
-            var you = roundSplit[1];
-
-            if (Day2.Win.Contains(round))
-            {
-                score += WinPoints;
-            }
-            else if (Day2.Draw.Contains(round))
-            {
-                score += DrawPoints;
-            } else {
-                score += LosePoints;
-            }
-
-            score += points[you];
+            var shape = round.Split(' ')[1];
+            score += (CalcOutcomePoints(round) + shapePoints[shape]);
         }
 
         return score;
@@ -52,14 +34,8 @@ public class Day2
 
     public static int Part2(string inputFilePath)
     {
-        var points = new Dictionary<string, int> {
-            {"X", 1},
-            {"Y", 2},
-            {"Z", 3}
-        };
-
         var score = 0;
-        string[] a;
+        string[] strategy;
 
         var rounds = File.ReadLines(inputFilePath);
         foreach (var round in rounds)
@@ -68,23 +44,22 @@ public class Day2
             var opponent = roundSplit[0];
             var you = roundSplit[1];
 
-            if (you == "X")
+            if (you == "Z")
             {
-                a = Day2.Lose;
-                score += LosePoints;
+                strategy = Day2.Win;
+                score += WinPoints;
             }
             else if (you == "Y")
             {
-                a = Day2.Draw;
+                strategy = Day2.Draw;
                 score += DrawPoints;
             }
             else
             {
-                a = Day2.Win;
-                score += WinPoints;
+                strategy = Day2.Lose;
             }
 
-            foreach (var combo in a)
+            foreach (var combo in strategy)
             {
                 if (combo.StartsWith(opponent))
                 {
@@ -92,9 +67,25 @@ public class Day2
                 }
             }
 
-            score += points[you];
+            score += shapePoints[you];
         }
 
         return score;
+    }
+
+    static int CalcOutcomePoints(string round)
+    {
+        if (Day2.Win.Contains(round))
+        {
+            return WinPoints;
+        }
+        else if (Day2.Draw.Contains(round))
+        {
+            return DrawPoints;
+        }
+        else
+        {
+            return LosePoints;
+        }
     }
 }
