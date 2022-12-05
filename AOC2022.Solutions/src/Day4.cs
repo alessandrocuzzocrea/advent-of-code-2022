@@ -1,12 +1,12 @@
-class Day4
+public class Day4
 {
     const string InputFilePath = "./inputs/day4";
 
-    public static int Part1()
+    public static int Part1(string inputFilePath)
     {
         var fullyOverlaps = 0;
 
-        var pairs = File.ReadLines(InputFilePath);
+        var pairs = File.ReadLines(inputFilePath);
         foreach (var pair in pairs)
         {
             var section1 = pair.Split(',')[0];
@@ -31,11 +31,11 @@ class Day4
         return fullyOverlaps;
     }
 
-    public static int Part2()
+    public static int Part2(string inputFilePath)
     {
         var overlaps = 0;
 
-        var pairs = File.ReadLines(InputFilePath);
+        var pairs = File.ReadLines(inputFilePath);
         foreach (var pair in pairs)
         {
             var section1 = pair.Split(',')[0];

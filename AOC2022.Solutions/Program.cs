@@ -15,8 +15,8 @@ Console.WriteLine($"Part 1: {Day3.Part1("./inputs/day3")}");
 Console.WriteLine($"Part 2: {Day3.Part2("./inputs/day3")}");
 
 Console.WriteLine("--- Day 4: Camp Cleanup ---");
-Console.WriteLine($"Part 1: {Day4.Part1()}");
-Console.WriteLine($"Part 2: {Day4.Part2()}");
+Console.WriteLine($"Part 1: {Day4.Part1("./inputs/day4")}");
+Console.WriteLine($"Part 2: {Day4.Part2("./inputs/day4")}");
 
 Console.WriteLine("--- Day 5: Supply Stacks ---");
 Console.WriteLine($"Part 1: {Day5.Part1()}");
