@@ -24,5 +24,6 @@ Console.WriteLine($"Part 2: {Day5.Part2("./inputs/day5")}");
 
 Console.WriteLine("--- Day 6: Tuning Trouble ---");
 Console.WriteLine($"Part 1: {Day6.Part1("./inputs/day6")}");
+Console.WriteLine($"Part 2: {Day6.Part2("./inputs/day6")}");
 
 Console.WriteLine("Have a good one! 👋");

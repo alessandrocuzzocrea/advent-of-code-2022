@@ -4,24 +4,23 @@ namespace AOC2022.Tests;
 
 public class UnitTestDay6
 {
-    // [Fact]
-    // public void Part1_IsCorrect_WhenUsingExampleInputFile()
-    // {
-    //     Assert.Equal("CMZ", Day6.Part1("./inputs/day6-example"));
-    // }
-
-    // [Fact]
-    // public void Part2_IsCorrect_WhenUsingExampleInputFile()
-    // {
-    //     Assert.Equal("MCD", Day6.Part2("./inputs/day6-example"));
-    // }
+    [Fact]
+    public void DetectMarker_ReturnsTheCorrectValue_WhenLookAhead4()
+    {
+        Assert.Equal(7, Day6.DetectMarker("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 4));
+        Assert.Equal(5, Day6.DetectMarker("bvwbjplbgvbhsrlpgdmjqwftvncz", 4));
+        Assert.Equal(6, Day6.DetectMarker("nppdvjthqldpwncqszvftbrmjlhg", 4));
+        Assert.Equal(10, Day6.DetectMarker("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 4));
+        Assert.Equal(11, Day6.DetectMarker("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 4));
+    }
 
     [Fact]
-    public void RenameMe_ReturnsTheCorrectValue() {
-       Assert.Equal(7, Day6.RenameMe("mjqjpqmgbljsphdztnvjfqwrcgsmlb"));
-       Assert.Equal(5, Day6.RenameMe("bvwbjplbgvbhsrlpgdmjqwftvncz"));
-       Assert.Equal(6, Day6.RenameMe("nppdvjthqldpwncqszvftbrmjlhg"));
-       Assert.Equal(10, Day6.RenameMe("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"));
-       Assert.Equal(11, Day6.RenameMe("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"));
+    public void DetectMarker_ReturnsTheCorrectValue_WhenLookAhead14()
+    {
+        Assert.Equal(19, Day6.DetectMarker("mjqjpqmgbljsphdztnvjfqwrcgsmlb", 14));
+        Assert.Equal(23, Day6.DetectMarker("bvwbjplbgvbhsrlpgdmjqwftvncz", 14));
+        Assert.Equal(23, Day6.DetectMarker("nppdvjthqldpwncqszvftbrmjlhg", 14));
+        Assert.Equal(29, Day6.DetectMarker("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 14));
+        Assert.Equal(26, Day6.DetectMarker("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 14));
     }
 }
