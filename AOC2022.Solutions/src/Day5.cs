@@ -1,14 +1,61 @@
+using System.Text;
+
 public class Day5
 {
-    const string InputFilePath = "./inputs/day5";
-
     public static string Part1(string inputFilePath)
     {
-        var stacks = new List<Stack<char>>();
-        stacks.Add(new Stack<char>());
-        var lastLineIndex = 0;
-
+        int lastLineIndex;
         var pairs = File.ReadLines(inputFilePath).ToArray();
+        var stacks = ParseInputDrawing(inputFilePath, pairs, out lastLineIndex);
+
+        for (var j = lastLineIndex + 2; j < pairs.Length; j++)
+        {
+            var step = ParseStep(pairs[j]);
+
+            for (var i = 0; i < step.count; i++)
+            {
+                var crate = stacks[step.from].Pop();
+                stacks[step.to].Push(crate);
+            }
+        }
+
+        return StackToResult(stacks);
+    }
+
+    public static string Part2(string inputFilePath)
+    {
+        int lastLineIndex;
+        var pairs = File.ReadLines(inputFilePath).ToArray();
+        var stacks = ParseInputDrawing(inputFilePath, pairs, out lastLineIndex);
+
+        for (var j = lastLineIndex + 2; j < pairs.Length; j++)
+        {
+            var tmp = new List<char>();
+
+            var step = ParseStep(pairs[j]);
+            for (var i = 0; i < step.count; i++)
+            {
+                var crate = stacks[step.from].Pop();
+                tmp.Add(crate);
+            }
+
+            tmp.Reverse();
+
+            foreach (char crate in tmp)
+            {
+                stacks[step.to].Push(crate);
+            }
+
+        }
+
+        return StackToResult(stacks);
+    }
+
+    private static List<Stack<char>> ParseInputDrawing(string inputFilePath, string[] pairs, out int lastLineIndex)
+    {
+        List<Stack<char>> stacks = new List<Stack<char>>();
+        stacks.Add(new Stack<char>());
+        lastLineIndex = 0;
         for (var i = 0; i < pairs.Length; i++)
         {
             if (pairs[i] == string.Empty)
@@ -29,101 +76,28 @@ public class Day5
             {
                 var line = pairs[i];
                 var crate = line[y];
-                if (crate != ' ')
+                if (char.IsWhiteSpace(crate) == false)
                 {
                     currStack.Push(crate);
                 }
             }
         }
-
-        for (var y = lastLineIndex + 2; y < pairs.Length; y++)
-        {
-            var ll = pairs[y].Split(" ");
-
-            var count = int.Parse(ll[1]);
-            var from = int.Parse(ll[3]);
-            var to = int.Parse(ll[5]);
-
-            for (var i = 0; i < count; i++)
-            {
-                var tmp = stacks[from].Pop();
-                stacks[to].Push(tmp);
-            }
-        }
-
-        string res = "";
-        for (var i = 1; i < stacks.Count(); i++)
-        {
-            res = res + stacks[i].Pop();
-        }
-
-        return res;
+        return stacks;
     }
 
-    public static string Part2(string inputFilePath)
+    private static (int count, int from, int to) ParseStep(string s)
     {
-        var stacks = new List<Stack<char>>();
-        stacks.Add(new Stack<char>());
-        var lastLineIndex = 0;
+        var ll = s.Split(' ');
+        return (count: int.Parse(ll[1]), from: int.Parse(ll[3]), to: int.Parse(ll[5]));
+    }
 
-        var pairs = File.ReadLines(inputFilePath).ToArray();
-        for (var i = 0; i < pairs.Length; i++)
+    private static string StackToResult(List<Stack<char>> s)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (var i = 1; i < s.Count(); i++)
         {
-            if (pairs[i] == string.Empty)
-            {
-                lastLineIndex = i - 1;
-            }
+            sb.Append(s[i].Pop());
         }
-
-        for (var y = 1; y < pairs[lastLineIndex].Length; y += 4)
-        {
-            var f = pairs[lastLineIndex];
-            var currStack = new Stack<char>();
-            stacks.Add(currStack);
-            var stackNo = int.Parse(f[y].ToString());
-
-            for (var i = lastLineIndex - 1; i >= 0; i--)
-            {
-                var line = pairs[i];
-                var crate = line[y];
-                if (crate != ' ')
-                {
-                    currStack.Push(crate);
-                }
-            }
-        }
-
-        for (var y = lastLineIndex + 2; y < pairs.Length; y++)
-        {
-            var ll = pairs[y].Split(" ");
-
-            var count = int.Parse(ll[1]);
-            var from = int.Parse(ll[3]);
-            var to = int.Parse(ll[5]);
-
-            var tmp2 = new List<char>();
-
-            for (var i = 0; i < count; i++)
-            {
-                var tmp = stacks[from].Pop();
-                tmp2.Add(tmp);
-            }
-
-            tmp2.Reverse();
-
-            foreach (char crate in tmp2)
-            {
-                stacks[to].Push(crate);
-            }
-
-        }
-
-        string res = "";
-        for (var i = 1; i < stacks.Count(); i++)
-        {
-            res = res + stacks[i].Pop();
-        }
-
-        return res;
+        return sb.ToString();
     }
 }
