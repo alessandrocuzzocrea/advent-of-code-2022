@@ -6,15 +6,32 @@ public class Day7
     const int SpaceRequired = 30_000_000;
     private class Node : IComparable<Node>
     {
-        public Node? parent;
-        public List<Node> children = new();
-        public string path;
-        public int size = 0;
+        public string Path;
+        public Node? Parent;
+        public List<Node> Children = new();
+        public int Size = 0;
+
         public Node(string path, Node? parent)
         {
-            this.parent = parent;
-            this.path = path;
-            this.parent?.children.Add(this);
+            Path = path;
+            Parent = parent;
+            Parent?.Children.Add(this);
+        }
+
+        public int CalcSize()
+        {
+            return Size + CalcChildrenSize();
+        }
+
+        public int CalcChildrenSize()
+        {
+            int totalSize = 0;
+            foreach (var child in Children)
+            {
+                totalSize += child.CalcSize();
+            }
+
+            return totalSize;
         }
 
         public int CompareTo(Node? other)
@@ -23,23 +40,7 @@ public class Day7
             {
                 return 1;
             }
-            return other.calcSize() - this.calcSize();
-        }
-
-        public int calcSize()
-        {
-            int childrenTotalSize = 0;
-            foreach (var child in children)
-            {
-                childrenTotalSize += child.calcSize();
-            }
-
-            return size + childrenTotalSize;
-        }
-
-        public override string ToString()
-        {
-            return "Node: " + path + " " + calcSize();
+            return other.CalcSize() - this.CalcSize();
         }
     }
 
@@ -62,7 +63,7 @@ public class Day7
 
                             if (path == "..")
                             {
-                                currNode = currNode?.parent;
+                                currNode = currNode?.Parent;
                             }
                             else
                             {
@@ -80,18 +81,18 @@ public class Day7
                             }
                             break;
                         case "ls":
-                            Console.WriteLine($"ls");
+                            // Console.WriteLine($"ls");
                             break;
                     }
                     break;
                 case "dir":
-                    Console.WriteLine($"dir {tokens[1]}");
+                    // Console.WriteLine($"dir {tokens[1]}");
                     break;
                 default:
-                    Console.WriteLine($"file {tokens[1]}, size {tokens[0]}");
+                    // Console.WriteLine($"file {tokens[1]}, size {tokens[0]}");
                     if (currNode != null)
                     {
-                        currNode.size += int.Parse(tokens[0]);
+                        currNode.Size += int.Parse(tokens[0]);
                     }
                     break;
             }
@@ -124,7 +125,7 @@ public class Day7
 
                             if (path == "..")
                             {
-                                currNode = currNode?.parent;
+                                currNode = currNode?.Parent;
                             }
                             else
                             {
@@ -144,18 +145,18 @@ public class Day7
                             }
                             break;
                         case "ls":
-                            Console.WriteLine($"ls");
+                            // Console.WriteLine($"ls");
                             break;
                     }
                     break;
                 case "dir":
-                    Console.WriteLine($"dir {tokens[1]}");
+                    // Console.WriteLine($"dir {tokens[1]}");
                     break;
                 default:
-                    Console.WriteLine($"file {tokens[1]}, size {tokens[0]}");
+                    // Console.WriteLine($"file {tokens[1]}, size {tokens[0]}");
                     if (currNode != null)
                     {
-                        currNode.size += int.Parse(tokens[0]);
+                        currNode.Size += int.Parse(tokens[0]);
                     }
                     break;
             }
@@ -172,10 +173,10 @@ public class Day7
 
         foreach (var node in nodes)
         {
-            Console.WriteLine(node.ToString());
-            if (node.calcSize() >= emptySpaceNeeded)
+            // Console.WriteLine(node.ToString());
+            if (node.CalcSize() >= emptySpaceNeeded)
             {
-                loller = int.Min(loller, node.calcSize());
+                loller = int.Min(loller, node.CalcSize());
             }
 
         }
@@ -186,23 +187,23 @@ public class Day7
     private static int dfs(Node n, ref int f)
     {
         int childrenTotalSize = 0;
-        foreach (var child in n.children)
+        foreach (var child in n.Children)
         {
             childrenTotalSize += dfs(child, ref f);
         }
 
-        if (n.size + childrenTotalSize <= 100_000)
+        if (n.Size + childrenTotalSize <= 100_000)
         {
-            f += n.size + childrenTotalSize;
+            f += n.Size + childrenTotalSize;
         }
 
-        return n.size + childrenTotalSize;
+        return n.Size + childrenTotalSize;
     }
 
     private static int dfs2(Node n, ref int f)
     {
         int childrenTotalSize = 0;
-        foreach (var child in n.children)
+        foreach (var child in n.Children)
         {
             childrenTotalSize += dfs(child, ref f);
         }
@@ -212,6 +213,6 @@ public class Day7
         //     f += n.size + childrenTotalSize;
         // }
 
-        return n.size + childrenTotalSize;
+        return n.Size + childrenTotalSize;
     }
 }
