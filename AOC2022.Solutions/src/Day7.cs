@@ -2,21 +2,21 @@ namespace AOC2022.Solutions;
 
 public class Day7
 {
-    private class Node : IComparable<Node>
+    private class Directory : IComparable<Directory>
     {
         public string Path;
-        public Node? Parent;
-        public List<Node> Children = new();
+        public Directory? Parent;
+        public List<Directory> Children = new();
         public int Size = 0;
 
-        public Node(string path, Node? parent)
+        public Directory(string path, Directory? parent)
         {
             Path = path;
             Parent = parent;
             Parent?.Children.Add(this);
         }
 
-        public int NodeSize()
+        public int DirectorySize()
         {
             return Size + ChildrenSize();
         }
@@ -26,37 +26,32 @@ public class Day7
             int totalSize = 0;
             foreach (var child in Children)
             {
-                totalSize += child.NodeSize();
+                totalSize += child.DirectorySize();
             }
 
             return totalSize;
         }
 
-        public int CompareTo(Node? other)
+        public int CompareTo(Directory? other)
         {
             if (other == null)
             {
                 return -1;
             }
-            return NodeSize() - other.NodeSize();
-        }
-
-        public override string ToString()
-        {
-            return "Node: " + Path + " " + NodeSize().ToString("N0");
+            return DirectorySize() - other.DirectorySize();
         }
     }
 
     public static int Part1(string inputFilePath)
     {
-        var nodes = ExecuteCommands(File.ReadAllLines(inputFilePath));
+        var dirs = ExecuteCommands(File.ReadAllLines(inputFilePath));
 
         int f = 0;
-        foreach (var n in nodes)
+        foreach (var d in dirs)
         {
-            if (n.NodeSize() <= 100_000)
+            if (d.DirectorySize() <= 100_000)
             {
-                f += n.NodeSize();
+                f += d.DirectorySize();
             }
         }
 
@@ -65,30 +60,30 @@ public class Day7
 
     public static int Part2(string inputFilePath)
     {
-        var nodes = ExecuteCommands(File.ReadAllLines(inputFilePath));
+        var dirs = ExecuteCommands(File.ReadAllLines(inputFilePath));
 
         const int TotalSpace = 70_000_000;
         const int SpaceRequired = 30_000_000;
 
-        var emptySpaceNeeded = SpaceRequired - (TotalSpace - nodes[0].NodeSize());
+        var emptySpaceNeeded = SpaceRequired - (TotalSpace - dirs[0].DirectorySize());
 
-        nodes.Sort();
+        dirs.Sort();
 
-        foreach (var node in nodes)
+        foreach (var d in dirs)
         {
-            if (node.NodeSize() >= emptySpaceNeeded)
+            if (d.DirectorySize() >= emptySpaceNeeded)
             {
-                return node.NodeSize();
+                return d.DirectorySize();
             }
         }
 
         return -1;
     }
 
-    private static List<Node> ExecuteCommands(string[] cmds)
+    private static List<Directory> ExecuteCommands(string[] cmds)
     {
-        var nodes = new List<Node>();
-        Node? currNode = null;
+        var dirs = new List<Directory>();
+        Directory? currDir = null;
 
         foreach (var cmd in cmds)
         {
@@ -104,13 +99,13 @@ public class Day7
 
                             if (path == "..")
                             {
-                                currNode = currNode?.Parent;
+                                currDir = currDir?.Parent;
                             }
                             else
                             {
-                                var newNode = new Node(path, currNode);
-                                nodes.Add(newNode);
-                                currNode = newNode;
+                                var newDir = new Directory(path, currDir);
+                                dirs.Add(newDir);
+                                currDir = newDir;
                             }
                             break;
                         case "ls":
@@ -120,14 +115,14 @@ public class Day7
                 case "dir":
                     break;
                 default:
-                    if (currNode != null)
+                    if (currDir != null)
                     {
-                        currNode.Size += int.Parse(tokens[0]);
+                        currDir.Size += int.Parse(tokens[0]);
                     }
                     break;
             }
         }
 
-        return nodes;
+        return dirs;
     }
 }
