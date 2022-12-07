@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace AOC2022.Solutions;
 
 public class Day2
@@ -12,7 +10,8 @@ public class Day2
     const int DrawPoints = 3;
     const int LosePoints = 0;
 
-    static readonly Dictionary<string, int> shapePoints = new Dictionary<string, int> {
+    static readonly Dictionary<string, int> shapePoints = new()
+    {
             {"X", 1},
             {"Y", 2},
             {"Z", 3}
@@ -26,7 +25,7 @@ public class Day2
         foreach (var round in rounds)
         {
             var shape = round.Split(' ')[1];
-            score += (CalcOutcomePoints(round) + shapePoints[shape]);
+            score += CalcOutcomePoints(round) + shapePoints[shape];
         }
 
         return score;
@@ -46,17 +45,17 @@ public class Day2
 
             if (you == "Z")
             {
-                strategy = Day2.Win;
+                strategy = Win;
                 score += WinPoints;
             }
             else if (you == "Y")
             {
-                strategy = Day2.Draw;
+                strategy = Draw;
                 score += DrawPoints;
             }
             else
             {
-                strategy = Day2.Lose;
+                strategy = Lose;
             }
 
             foreach (var combo in strategy)
@@ -75,11 +74,11 @@ public class Day2
 
     static int CalcOutcomePoints(string round)
     {
-        if (Day2.Win.Contains(round))
+        if (Win.Contains(round))
         {
             return WinPoints;
         }
-        else if (Day2.Draw.Contains(round))
+        else if (Draw.Contains(round))
         {
             return DrawPoints;
         }
