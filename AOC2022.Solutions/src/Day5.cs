@@ -10,12 +10,12 @@ public class Day5
 
         for (var j = lastLineIndex + 2; j < pairs.Length; j++)
         {
-            var step = ParseStep(pairs[j]);
+            var (count, from, to) = ParseStep(pairs[j]);
 
-            for (var i = 0; i < step.count; i++)
+            for (var i = 0; i < count; i++)
             {
-                var crate = stacks[step.from].Pop();
-                stacks[step.to].Push(crate);
+                var crate = stacks[from].Pop();
+                stacks[to].Push(crate);
             }
         }
 
@@ -32,10 +32,10 @@ public class Day5
         {
             var tmp = new List<char>();
 
-            var step = ParseStep(pairs[j]);
-            for (var i = 0; i < step.count; i++)
+            var (count, from, to) = ParseStep(pairs[j]);
+            for (var i = 0; i < count; i++)
             {
-                var crate = stacks[step.from].Pop();
+                var crate = stacks[from].Pop();
                 tmp.Add(crate);
             }
 
@@ -43,7 +43,7 @@ public class Day5
 
             foreach (char crate in tmp)
             {
-                stacks[step.to].Push(crate);
+                stacks[to].Push(crate);
             }
 
         }
