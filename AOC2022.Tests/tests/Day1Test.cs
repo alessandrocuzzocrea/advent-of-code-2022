@@ -2,17 +2,17 @@ using AOC2022.Solutions;
 
 namespace AOC2022.Tests;
 
-public class UnitTestDay4
+public class Day1Test
 {
     [Fact]
     public void Part1_IsCorrect_WhenUsingExampleInputFile()
     {
-        Assert.Equal(2, Day4.Part1("./inputs/day4-example"));
+        Assert.Equal(24000, Day1.Part1("./inputs/day1-example"));
     }
 
     [Fact]
     public void Part2_IsCorrect_WhenUsingExampleInputFile()
     {
-        Assert.Equal(4, Day4.Part2("./inputs/day4-example"));
+        Assert.Equal(45000, Day1.Part2("./inputs/day1-example"));
     }
 }

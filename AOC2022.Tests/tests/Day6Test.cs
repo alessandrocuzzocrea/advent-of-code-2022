@@ -2,7 +2,7 @@ using AOC2022.Solutions;
 
 namespace AOC2022.Tests;
 
-public class UnitTestDay6
+public class Day6Test
 {
     [Fact]
     public void DetectMarker_ReturnsTheCorrectValue_WhenLookAhead4()
