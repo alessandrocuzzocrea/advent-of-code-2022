@@ -53,8 +53,10 @@ public class Day5
 
     private static List<Stack<char>> ParseInputDrawing(string inputFilePath, string[] pairs, out int lastLineIndex)
     {
-        List<Stack<char>> stacks = new List<Stack<char>>();
-        stacks.Add(new Stack<char>());
+        List<Stack<char>> stacks = new List<Stack<char>>
+        {
+            new Stack<char>()
+        };
         lastLineIndex = 0;
         for (var i = 0; i < pairs.Length; i++)
         {
@@ -70,7 +72,6 @@ public class Day5
             var f = pairs[lastLineIndex];
             var currStack = new Stack<char>();
             stacks.Add(currStack);
-            var stackNo = int.Parse(f[y].ToString());
 
             for (var i = lastLineIndex - 1; i >= 0; i--)
             {
@@ -94,7 +95,7 @@ public class Day5
     private static string StackToResult(List<Stack<char>> s)
     {
         StringBuilder sb = new StringBuilder();
-        for (var i = 1; i < s.Count(); i++)
+        for (var i = 1; i < s.Count; i++)
         {
             sb.Append(s[i].Pop());
         }
