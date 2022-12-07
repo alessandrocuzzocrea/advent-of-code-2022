@@ -1,3 +1,5 @@
+namespace AOC2022.Solutions;
+
 public class Day3
 {
     public static int Part1(string inputFilePath)

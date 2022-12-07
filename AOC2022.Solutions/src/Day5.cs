@@ -1,5 +1,7 @@
 using System.Text;
 
+namespace AOC2022.Solutions;
+
 public class Day5
 {
     public static string Part1(string inputFilePath)
