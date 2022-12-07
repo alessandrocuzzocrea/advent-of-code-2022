@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AOC2022.Solutions;
 
@@ -6,9 +7,8 @@ public class Day5
 {
     public static string Part1(string inputFilePath)
     {
-        int lastLineIndex;
         var pairs = File.ReadLines(inputFilePath).ToArray();
-        var stacks = ParseInputDrawing(pairs, out lastLineIndex);
+        var stacks = ParseInputDrawing(pairs, out var lastLineIndex);
 
         for (var j = lastLineIndex + 2; j < pairs.Length; j++)
         {
@@ -26,9 +26,8 @@ public class Day5
 
     public static string Part2(string inputFilePath)
     {
-        int lastLineIndex;
         var pairs = File.ReadLines(inputFilePath).ToArray();
-        var stacks = ParseInputDrawing(pairs, out lastLineIndex);
+        var stacks = ParseInputDrawing(pairs, out var lastLineIndex);
 
         for (var j = lastLineIndex + 2; j < pairs.Length; j++)
         {
@@ -47,7 +46,6 @@ public class Day5
             {
                 stacks[to].Push(crate);
             }
-
         }
 
         return StackToResult(stacks);
@@ -55,10 +53,8 @@ public class Day5
 
     private static List<Stack<char>> ParseInputDrawing(string[] pairs, out int lastLineIndex)
     {
-        List<Stack<char>> stacks = new List<Stack<char>>
-        {
-            new Stack<char>()
-        };
+        List<Stack<char>> stacks = new() { new Stack<char>() };
+
         lastLineIndex = 0;
         for (var i = 0; i < pairs.Length; i++)
         {
@@ -69,22 +65,28 @@ public class Day5
             }
         }
 
-        for (var y = 1; y < pairs[lastLineIndex].Length; y += 4)
-        {
-            var f = pairs[lastLineIndex];
-            var currStack = new Stack<char>();
-            stacks.Add(currStack);
+        var r = new Regex(@"\[([A-Z])\]|(\x20{4})");
 
-            for (var i = lastLineIndex - 1; i >= 0; i--)
+        // Prepare stacks
+        var m = r.Matches(pairs[0]);
+        for (var x = 0; x < m.Count; x++)
+        {
+            stacks.Add(new Stack<char>());
+        }
+
+        for (var y = lastLineIndex - 1; y >= 0; y--)
+        {
+            for (var x = 0; x < m.Count; x++)
             {
-                var line = pairs[i];
-                var crate = line[y];
-                if (char.IsWhiteSpace(crate) == false)
+                var currM = r.Matches(pairs[y]);
+                var crate = currM[x].Groups[1].Value;
+                if (string.IsNullOrWhiteSpace(crate) == false)
                 {
-                    currStack.Push(crate);
+                    stacks[x + 1].Push(crate[0]);
                 }
             }
         }
+
         return stacks;
     }
 
