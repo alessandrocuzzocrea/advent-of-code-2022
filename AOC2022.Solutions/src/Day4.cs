@@ -1,3 +1,5 @@
+namespace AOC2022.Solutions;
+
 public class Day4
 {
     public class Section
