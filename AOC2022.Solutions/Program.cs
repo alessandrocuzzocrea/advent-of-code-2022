@@ -28,5 +28,6 @@ Console.WriteLine($"Part 2: {Day6.Part2("./inputs/day6")}");
 
 Console.WriteLine("--- Day 7: No Space Left On Device ---");
 Console.WriteLine($"Part 1: {Day7.Part1("./inputs/day7")}");
+Console.WriteLine($"Part 2: {Day7.Part2("./inputs/day7")}");
 
 Console.WriteLine("Have a good one! 👋");
