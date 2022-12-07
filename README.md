@@ -8,3 +8,4 @@
 [Day 4: Camp Cleanup](AOC2022.Solutions/src/Day4.cs)  
 [Day 5: Supply Stacks](AOC2022.Solutions/src/Day5.cs)  
 [Day 6: Tuning Trouble](AOC2022.Solutions/src/Day6.cs)
+[Day 7: No Space Left On Device](AOC2022.Solutions/src/Day7.cs)
