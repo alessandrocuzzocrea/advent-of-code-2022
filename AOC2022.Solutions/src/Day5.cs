@@ -8,7 +8,7 @@ public class Day5
     {
         int lastLineIndex;
         var pairs = File.ReadLines(inputFilePath).ToArray();
-        var stacks = ParseInputDrawing(inputFilePath, pairs, out lastLineIndex);
+        var stacks = ParseInputDrawing(pairs, out lastLineIndex);
 
         for (var j = lastLineIndex + 2; j < pairs.Length; j++)
         {
@@ -28,7 +28,7 @@ public class Day5
     {
         int lastLineIndex;
         var pairs = File.ReadLines(inputFilePath).ToArray();
-        var stacks = ParseInputDrawing(inputFilePath, pairs, out lastLineIndex);
+        var stacks = ParseInputDrawing(pairs, out lastLineIndex);
 
         for (var j = lastLineIndex + 2; j < pairs.Length; j++)
         {
@@ -53,7 +53,7 @@ public class Day5
         return StackToResult(stacks);
     }
 
-    private static List<Stack<char>> ParseInputDrawing(string inputFilePath, string[] pairs, out int lastLineIndex)
+    private static List<Stack<char>> ParseInputDrawing(string[] pairs, out int lastLineIndex)
     {
         List<Stack<char>> stacks = new List<Stack<char>>
         {
