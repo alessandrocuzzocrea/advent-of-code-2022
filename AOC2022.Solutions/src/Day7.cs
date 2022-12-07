@@ -2,8 +2,6 @@ namespace AOC2022.Solutions;
 
 public class Day7
 {
-    const int TotalSpace = 70_000_000;
-    const int SpaceRequired = 30_000_000;
     private class Node : IComparable<Node>
     {
         public string Path;
@@ -18,17 +16,17 @@ public class Day7
             Parent?.Children.Add(this);
         }
 
-        public int CalcSize()
+        public int NodeSize()
         {
-            return Size + CalcChildrenSize();
+            return Size + ChildrenSize();
         }
 
-        public int CalcChildrenSize()
+        public int ChildrenSize()
         {
             int totalSize = 0;
             foreach (var child in Children)
             {
-                totalSize += child.CalcSize();
+                totalSize += child.NodeSize();
             }
 
             return totalSize;
@@ -38,82 +36,63 @@ public class Day7
         {
             if (other == null)
             {
-                return 1;
+                return -1;
             }
-            return other.CalcSize() - this.CalcSize();
+            return NodeSize() - other.NodeSize();
+        }
+
+        public override string ToString()
+        {
+            return "Node: " + Path + " " + NodeSize().ToString("N0");
         }
     }
 
     public static int Part1(string inputFilePath)
     {
-        Node? root = null;
-        Node? currNode = null;
-
-        foreach (var s in File.ReadAllLines(inputFilePath))
-        {
-            var tokens = s.Split(' ');
-
-            switch (tokens[0])
-            {
-                case "$":
-                    switch (tokens[1])
-                    {
-                        case "cd":
-                            var path = tokens[2];
-
-                            if (path == "..")
-                            {
-                                currNode = currNode?.Parent;
-                            }
-                            else
-                            {
-                                if (path == "/")
-                                {
-                                    var newNode = new Node(path, null);
-                                    root = newNode;
-                                    currNode = newNode;
-                                }
-                                else
-                                {
-                                    var newNode = new Node(path, currNode);
-                                    currNode = newNode;
-                                }
-                            }
-                            break;
-                        case "ls":
-                            // Console.WriteLine($"ls");
-                            break;
-                    }
-                    break;
-                case "dir":
-                    // Console.WriteLine($"dir {tokens[1]}");
-                    break;
-                default:
-                    // Console.WriteLine($"file {tokens[1]}, size {tokens[0]}");
-                    if (currNode != null)
-                    {
-                        currNode.Size += int.Parse(tokens[0]);
-                    }
-                    break;
-            }
-        }
+        var nodes = ExecuteCommands(File.ReadAllLines(inputFilePath));
 
         int f = 0;
-        dfs(root, ref f);
+        foreach (var n in nodes)
+        {
+            if (n.NodeSize() <= 100_000)
+            {
+                f += n.NodeSize();
+            }
+        }
 
         return f;
     }
 
     public static int Part2(string inputFilePath)
     {
-        Node? root = null;
+        var nodes = ExecuteCommands(File.ReadAllLines(inputFilePath));
+
+        const int TotalSpace = 70_000_000;
+        const int SpaceRequired = 30_000_000;
+
+        var emptySpaceNeeded = SpaceRequired - (TotalSpace - nodes[0].NodeSize());
+
+        nodes.Sort();
+
+        foreach (var node in nodes)
+        {
+            if (node.NodeSize() >= emptySpaceNeeded)
+            {
+                return node.NodeSize();
+            }
+        }
+
+        return -1;
+    }
+
+    private static List<Node> ExecuteCommands(string[] cmds)
+    {
+        var nodes = new List<Node>();
         Node? currNode = null;
 
-        var nodes = new List<Node>();
-
-        foreach (var s in File.ReadAllLines(inputFilePath))
+        foreach (var cmd in cmds)
         {
-            var tokens = s.Split(' ');
+            var tokens = cmd.Split(' ');
 
             switch (tokens[0])
             {
@@ -129,31 +108,18 @@ public class Day7
                             }
                             else
                             {
-                                if (path == "/")
-                                {
-                                    var newNode = new Node(path, null);
-                                    nodes.Add(newNode);
-                                    root = newNode;
-                                    currNode = newNode;
-                                }
-                                else
-                                {
-                                    var newNode = new Node(path, currNode);
-                                    nodes.Add(newNode);
-                                    currNode = newNode;
-                                }
+                                var newNode = new Node(path, currNode);
+                                nodes.Add(newNode);
+                                currNode = newNode;
                             }
                             break;
                         case "ls":
-                            // Console.WriteLine($"ls");
                             break;
                     }
                     break;
                 case "dir":
-                    // Console.WriteLine($"dir {tokens[1]}");
                     break;
                 default:
-                    // Console.WriteLine($"file {tokens[1]}, size {tokens[0]}");
                     if (currNode != null)
                     {
                         currNode.Size += int.Parse(tokens[0]);
@@ -162,57 +128,6 @@ public class Day7
             }
         }
 
-        int f = 0;
-        int totalSpaceUsed = dfs2(root, ref f);
-
-        int unusedSpace = TotalSpace - totalSpaceUsed;
-        int emptySpaceNeeded = SpaceRequired - unusedSpace;
-
-        nodes.Sort();
-        int loller = int.MaxValue;
-
-        foreach (var node in nodes)
-        {
-            // Console.WriteLine(node.ToString());
-            if (node.CalcSize() >= emptySpaceNeeded)
-            {
-                loller = int.Min(loller, node.CalcSize());
-            }
-
-        }
-
-        return loller;
-    }
-
-    private static int dfs(Node n, ref int f)
-    {
-        int childrenTotalSize = 0;
-        foreach (var child in n.Children)
-        {
-            childrenTotalSize += dfs(child, ref f);
-        }
-
-        if (n.Size + childrenTotalSize <= 100_000)
-        {
-            f += n.Size + childrenTotalSize;
-        }
-
-        return n.Size + childrenTotalSize;
-    }
-
-    private static int dfs2(Node n, ref int f)
-    {
-        int childrenTotalSize = 0;
-        foreach (var child in n.Children)
-        {
-            childrenTotalSize += dfs(child, ref f);
-        }
-
-        // if (n.size + childrenTotalSize <= 100_000)
-        // {
-        //     f += n.size + childrenTotalSize;
-        // }
-
-        return n.Size + childrenTotalSize;
+        return nodes;
     }
 }
