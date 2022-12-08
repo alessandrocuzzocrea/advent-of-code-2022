@@ -37,13 +37,10 @@ public class Day8
 
                     while (nextX >= 0 && nextX < width && nextY >= 0 && nextY < height)
                     {
-
-
                         var v = int.Parse(lines[nextY][nextX].ToString());
                         if (tree <= v)
                         {
                             visibleDirs[i] = false;
-                            // continue;
                             break;
                         }
 
@@ -70,6 +67,8 @@ public class Day8
         var width = lines[0].Length;
         var height = lines.Length;
 
+        List<(int, int)> Directions = new() { (0, -1), (1, 0), (0, 1), (-1, 0) };
+
         var bestScore = 0;
 
         for (var y = 0; y < height; y++)
@@ -78,55 +77,30 @@ public class Day8
             {
                 int tree = int.Parse(lines[y][x].ToString());
 
-                //check up
-                var foundUp = 0;
-                for (var yUp = y - 1; yUp >= 0; yUp--)
+                int[] founds = new int[4];
+
+                for (var i = 0; i < Directions.Count; i++)
                 {
-                    var v = int.Parse(lines[yUp][x].ToString());
-                    foundUp++;
-                    if (tree <= v)
+                    var currDir = Directions[i];
+
+                    var nextX = x + currDir.Item1;
+                    var nextY = y + currDir.Item2;
+
+                    while (nextX >= 0 && nextX < width && nextY >= 0 && nextY < height)
                     {
-                        break;
+                        var v = int.Parse(lines[nextY][nextX].ToString());
+                        founds[i] += 1;
+                        if (tree <= v)
+                        {
+                            break;
+                        }
+
+                        nextX += currDir.Item1;
+                        nextY += currDir.Item2;
                     }
                 }
 
-                //check right
-                var foundRight = 0;
-                for (var xRight = x + 1; xRight < width; xRight++)
-                {
-                    var v = int.Parse(lines[y][xRight].ToString());
-                    foundRight++;
-                    if (tree <= v)
-                    {
-                        break;
-                    }
-                }
-
-                //check down
-                var foundDown = 0;
-                for (var yDown = y + 1; yDown < height; yDown++)
-                {
-                    var v = int.Parse(lines[yDown][x].ToString());
-                    foundDown++;
-                    if (tree <= v)
-                    {
-                        break;
-                    }
-                }
-
-                //check left
-                var foundLeft = 0;
-                for (var left_x = x - 1; left_x >= 0; left_x--)
-                {
-                    var v = int.Parse(lines[y][left_x].ToString());
-                    foundLeft++;
-                    if (tree <= v)
-                    {
-                        break;
-                    }
-                }
-
-                bestScore = int.Max(bestScore, foundUp * foundRight * foundDown * foundLeft);
+                bestScore = int.Max(bestScore, founds[0] * founds[1] * founds[2] * founds[3]);
             }
         }
 
