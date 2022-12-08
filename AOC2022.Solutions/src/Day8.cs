@@ -9,6 +9,8 @@ public class Day8
         var width = lines[0].Length;
         var height = lines.Length;
 
+        List<(int, int)> Directions = new() { (0, -1), (1, 0), (0, 1), (-1, 0) };
+
         int visibles = 0;
 
         for (var y = 0; y < height; y++)
@@ -24,55 +26,33 @@ public class Day8
 
                 int tree = int.Parse(lines[y][x].ToString());
 
-                //check up
-                var visibleUp = true;
-                for (var yUp = y - 1; yUp >= 0; yUp--)
+                bool[] visibleDirs = new bool[] { true, true, true, true };
+
+                for (var i = 0; i < Directions.Count; i++)
                 {
-                    var v = int.Parse(lines[yUp][x].ToString());
-                    if (tree <= v)
+                    var currDir = Directions[i];
+
+                    var nextX = x + currDir.Item1;
+                    var nextY = y + currDir.Item2;
+
+                    while (nextX >= 0 && nextX < width && nextY >= 0 && nextY < height)
                     {
-                        visibleUp = false;
-                        continue;
+
+
+                        var v = int.Parse(lines[nextY][nextX].ToString());
+                        if (tree <= v)
+                        {
+                            visibleDirs[i] = false;
+                            // continue;
+                            break;
+                        }
+
+                        nextX += currDir.Item1;
+                        nextY += currDir.Item2;
                     }
                 }
 
-                //check right
-                var visibleRight = true;
-                for (var xRight = x + 1; xRight < width; xRight++)
-                {
-                    var v = int.Parse(lines[y][xRight].ToString());
-                    if (tree <= v)
-                    {
-                        visibleRight = false;
-                        continue;
-                    }
-                }
-
-                //check down
-                var visibleDown = true;
-                for (var yDown = y + 1; yDown < height; yDown++)
-                {
-                    var v = int.Parse(lines[yDown][x].ToString());
-                    if (tree <= v)
-                    {
-                        visibleDown = false;
-                        continue;
-                    }
-                }
-
-                //check left
-                var visibleLeft = true;
-                for (var xLeft = x - 1; xLeft >= 0; xLeft--)
-                {
-                    var v = int.Parse(lines[y][xLeft].ToString());
-                    if (tree <= v)
-                    {
-                        visibleLeft = false;
-                        continue;
-                    }
-                }
-
-                if (visibleUp || visibleRight || visibleDown || visibleLeft)
+                if (visibleDirs[0] || visibleDirs[1] || visibleDirs[2] || visibleDirs[3])
                 {
                     visibles++;
                 }
