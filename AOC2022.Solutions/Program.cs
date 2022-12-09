@@ -34,4 +34,7 @@ Console.WriteLine("--- Day 8: Treetop Tree House ---");
 Console.WriteLine($"Part 1: {Day8.Part1("./inputs/day8")}");
 Console.WriteLine($"Part 2: {Day8.Part2("./inputs/day8")}");
 
+Console.WriteLine("--- Day 9: Rope Bridge ---");
+Console.WriteLine($"Part 1: {Day9.Part1("./inputs/day9")}");
+
 Console.WriteLine("Have a good one! 👋");
