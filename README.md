@@ -10,3 +10,4 @@
 [Day 6: Tuning Trouble](AOC2022.Solutions/src/Day6.cs)  
 [Day 7: No Space Left On Device](AOC2022.Solutions/src/Day7.cs)  
 [Day 8: Treetop Tree House](AOC2022.Solutions/src/Day8.cs)  
+[Day 9: Rope Bridge](AOC2022.Solutions/src/Day9.cs)  
