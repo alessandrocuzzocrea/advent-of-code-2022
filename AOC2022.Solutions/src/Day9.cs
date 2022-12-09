@@ -10,14 +10,8 @@ public class Day9
             public int x { get; private set; }
             public int y { get; private set; }
 
-            public int xPrev { get; private set; }
-            public int yPrev { get; private set; }
-
             public void setPosition(int x, int y)
             {
-                xPrev = this.x;
-                yPrev = this.y;
-
                 this.x = x;
                 this.y = y;
             }
@@ -27,16 +21,8 @@ public class Day9
                 return (x, y);
             }
 
-            public (int x, int y) GetPositionPrevious()
-            {
-                return (xPrev, yPrev);
-            }
-
             public void setMove((int x, int y) dir)
             {
-                xPrev = x;
-                yPrev = y;
-
                 x += dir.x;
                 y += dir.y;
             }
@@ -49,8 +35,7 @@ public class Day9
                 {"L", (-1, 0)},
             };
 
-        public Knot _head;
-        // public Knot _tail;
+        public Knot Head;
         public List<Knot> Tails = new();
 
         public Rope(int knotsCount, int startX = 0, int startY = 0)
@@ -59,9 +44,9 @@ public class Day9
             {
                 throw new ArgumentException("lollo");
             }
-            _head = new();
-            _head.setPosition(startX, startY);
-            Tails.Add(_head);
+            Head = new();
+            Head.setPosition(startX, startY);
+            Tails.Add(Head);
 
             for (int i = 1; i < knotsCount; i++)
             {
@@ -78,7 +63,7 @@ public class Day9
             return tailVisited.Count;
         }
 
-        public bool KnotsTouching(Knot head, Knot tail)
+        public static bool KnotsTouching(Knot head, Knot tail)
         {
             if (Math.Abs(head.x - tail.x) < 2 && Math.Abs(head.y - tail.y) < 2)
             {
@@ -94,28 +79,36 @@ public class Day9
 
             for (int i = 0; i < steps; i++)
             {
-                _head.setMove(currentDirection);
+                Head.setMove(currentDirection);
 
                 for (int j = 1; j < Tails.Count; j++)
                 {
                     MoveTail(Tails[j - 1], Tails[j]);
+
+                    if (j == Tails.Count - 1)
+                    {
+                        tailVisited.Add((Tails[j].x, Tails[j].y));
+
+                    }
                 }
             }
         }
 
-        void MoveTail(Knot head, Knot tail)
+        private static void MoveTail(Knot head, Knot tail)
         {
-            var tailX = tail.x;
-            var tailY = tail.y;
-
             if (!KnotsTouching(head, tail))
             {
-                tailX = head.GetPositionPrevious().x;
-                tailY = head.GetPositionPrevious().y;
-            }
+                var diffX = head.x - tail.x;
+                var diffY = head.y - tail.y;
 
-            tail.setPosition(tailX, tailY);
-            tailVisited.Add((tail.x, tail.y));
+                if (diffX < -1) diffX = -1;
+                if (diffX > 1) diffX = 1;
+
+                if (diffY < -1) diffY = -1;
+                if (diffY > 1) diffY = 1;
+
+                tail.setPosition(tail.x + diffX, tail.y + diffY);
+            }
         }
     }
 
@@ -123,6 +116,21 @@ public class Day9
     {
         var lines = File.ReadAllLines(inputFilePath);
         Rope rope = new(2);
+
+        foreach (var line in lines)
+        {
+            var d = line.Split(" ")[0];
+            var s = line.Split(" ")[1];
+            rope.MoveHead(d, int.Parse(s));
+        }
+
+        return rope.Visited();
+    }
+
+    public static int Part2(string inputFilePath)
+    {
+        var lines = File.ReadAllLines(inputFilePath);
+        Rope rope = new(10);
 
         foreach (var line in lines)
         {
