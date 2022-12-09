@@ -29,34 +29,34 @@ public class Day9Test
         Rope rope = new(2, 0, 4);
 
         Assert.Equal((0, 4), rope.Head.GetPosition());
-        Assert.Equal((0, 4), rope.Tails[1].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[1].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         // == R 4 ==
         rope.MoveHead("R", 1);
         Assert.Equal((1, 4), rope.Head.GetPosition());
-        Assert.Equal((0, 4), rope.Tails[1].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[1].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         rope.MoveHead("R", 1);
         Assert.Equal((2, 4), rope.Head.GetPosition());
-        Assert.Equal((1, 4), rope.Tails[1].GetPosition());
+        Assert.Equal((1, 4), rope.Knots[1].GetPosition());
         Assert.Equal(2, rope.Visited());
 
         rope.MoveHead("R", 1);
         Assert.Equal((3, 4), rope.Head.GetPosition());
-        Assert.Equal((2, 4), rope.Tails[1].GetPosition());
+        Assert.Equal((2, 4), rope.Knots[1].GetPosition());
         Assert.Equal(3, rope.Visited());
 
         rope.MoveHead("R", 1);
         Assert.Equal((4, 4), rope.Head.GetPosition());
-        Assert.Equal((3, 4), rope.Tails[1].GetPosition());
+        Assert.Equal((3, 4), rope.Knots[1].GetPosition());
         Assert.Equal(4, rope.Visited());
 
         // == U 4 ==
         rope.MoveHead("U", 1);
         Assert.Equal((4, 3), rope.Head.GetPosition());
-        Assert.Equal((3, 4), rope.Tails[1].GetPosition());
+        Assert.Equal((3, 4), rope.Knots[1].GetPosition());
         Assert.Equal(4, rope.Visited());
     }
 
@@ -66,95 +66,95 @@ public class Day9Test
         Rope rope = new(10, 0, 4);
 
         Assert.Equal((0, 4), rope.Head.GetPosition());
-        Assert.Equal((0, 4), rope.Tails[1].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[2].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[3].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[1].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[2].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[3].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         // == R 4 ==
         rope.MoveHead("R", 1);
         Assert.Equal((1, 4), rope.Head.GetPosition());
-        Assert.Equal((0, 4), rope.Tails[1].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[2].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[3].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[1].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[2].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[3].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         rope.MoveHead("R", 1);
         Assert.Equal((2, 4), rope.Head.GetPosition());
-        Assert.Equal((1, 4), rope.Tails[1].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[2].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[3].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((1, 4), rope.Knots[1].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[2].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[3].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         rope.MoveHead("R", 1);
         Assert.Equal((3, 4), rope.Head.GetPosition());
-        Assert.Equal((2, 4), rope.Tails[1].GetPosition());
-        Assert.Equal((1, 4), rope.Tails[2].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[3].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((2, 4), rope.Knots[1].GetPosition());
+        Assert.Equal((1, 4), rope.Knots[2].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[3].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         rope.MoveHead("R", 1);
         Assert.Equal((4, 4), rope.Head.GetPosition());
-        Assert.Equal((3, 4), rope.Tails[1].GetPosition());
-        Assert.Equal((2, 4), rope.Tails[2].GetPosition());
-        Assert.Equal((1, 4), rope.Tails[3].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((3, 4), rope.Knots[1].GetPosition());
+        Assert.Equal((2, 4), rope.Knots[2].GetPosition());
+        Assert.Equal((1, 4), rope.Knots[3].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         // == U 4 ==
         rope.MoveHead("U", 1);
         Assert.Equal((4, 3), rope.Head.GetPosition());
-        Assert.Equal((3, 4), rope.Tails[1].GetPosition());
-        Assert.Equal((2, 4), rope.Tails[2].GetPosition());
-        Assert.Equal((1, 4), rope.Tails[3].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((3, 4), rope.Knots[1].GetPosition());
+        Assert.Equal((2, 4), rope.Knots[2].GetPosition());
+        Assert.Equal((1, 4), rope.Knots[3].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         rope.MoveHead("U", 1);
         Assert.Equal((4, 2), rope.Head.GetPosition());
-        Assert.Equal((4, 3), rope.Tails[1].GetPosition());
-        Assert.Equal((3, 3), rope.Tails[2].GetPosition());
-        Assert.Equal((2, 3), rope.Tails[3].GetPosition());
-        Assert.Equal((1, 3), rope.Tails[4].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[5].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[6].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[7].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[8].GetPosition());
-        Assert.Equal((0, 4), rope.Tails[9].GetPosition());
+        Assert.Equal((4, 3), rope.Knots[1].GetPosition());
+        Assert.Equal((3, 3), rope.Knots[2].GetPosition());
+        Assert.Equal((2, 3), rope.Knots[3].GetPosition());
+        Assert.Equal((1, 3), rope.Knots[4].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[5].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[6].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[7].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[8].GetPosition());
+        Assert.Equal((0, 4), rope.Knots[9].GetPosition());
         Assert.Equal(1, rope.Visited());
 
         rope.MoveHead("U", 1);
@@ -169,9 +169,9 @@ public class Day9Test
     {
         Rope rope = new(2);
         rope.Head.setPosition(0, 4);
-        rope.Tails[1].setPosition(0, 4);
+        rope.Knots[1].setPosition(0, 4);
 
-        Assert.True(Rope.KnotsTouching(rope.Head, rope.Tails[1]));
+        Assert.True(Rope.KnotsTouching(rope.Head, rope.Knots[1]));
     }
 
     [Theory]
@@ -186,9 +186,9 @@ public class Day9Test
     public void Rope_KnotsAreTouching(int xHead, int yHead)
     {
         Rope rope = new(2);
-        rope.Tails[1].setPosition(2, 2);
+        rope.Knots[1].setPosition(2, 2);
         rope.Head.setPosition(xHead, yHead);
-        Assert.True(Rope.KnotsTouching(rope.Head, rope.Tails[1]));
+        Assert.True(Rope.KnotsTouching(rope.Head, rope.Knots[1]));
     }
 
     [Theory]
@@ -207,8 +207,8 @@ public class Day9Test
     public void Rope_KnotsAreNotTouching(int xHead, int yHead)
     {
         Rope rope = new(2);
-        rope.Tails[1].setPosition(2, 2);
+        rope.Knots[1].setPosition(2, 2);
         rope.Head.setPosition(xHead, yHead);
-        Assert.False(Rope.KnotsTouching(rope.Head, rope.Tails[1]));
+        Assert.False(Rope.KnotsTouching(rope.Head, rope.Knots[1]));
     }
 }
