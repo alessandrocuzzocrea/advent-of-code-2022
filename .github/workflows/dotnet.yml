@@ -20,5 +20,15 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+    - name: Install git-crypt
+      run: sudo apt-get install -y git-crypt
+    - name: Setup git-crypt key
+      env:
+        GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+      run: echo "$GIT_CRYPT_KEY" | base64  -d > ./git-crypt-key
+    - name: Unlock repo secrets
+      run: git-crypt unlock ./git-crypt-key
+    - name: Remove key
+      run: rm ./git-crypt-key
     - name: Test
       run: dotnet test
