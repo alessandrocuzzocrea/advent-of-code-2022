@@ -38,4 +38,8 @@ Console.WriteLine("--- Day 9: Rope Bridge ---");
 Console.WriteLine($"Part 1: {Day9.Part1("./inputs/day9")}");
 Console.WriteLine($"Part 2: {Day9.Part2("./inputs/day9")}");
 
+Console.WriteLine("--- Day 10: Cathode-Ray Tube ---");
+Console.WriteLine($"Part 1: {Day10.Part1("./inputs/day10")}");
+// Console.WriteLine($"Part 2: {Day10.Part2("./inputs/day10")}");
+
 Console.WriteLine("Have a good one! 👋");
