@@ -4,13 +4,13 @@ namespace AOC2022.Solutions;
 
 public class Day10
 {
-    static readonly int[] specialCycles = new int[] { 20, 60, 100, 140, 180, 220 };
-
     public static int Part1(string inputFilePath)
     {
         var cycleCounter = 0;
         var X = 1;
         var signalStrength = 0;
+
+        int[] specialCycles = new int[] { 20, 60, 100, 140, 180, 220 };
 
         foreach (var line in File.ReadAllLines(inputFilePath))
         {
@@ -23,7 +23,6 @@ public class Day10
                     {
                         signalStrength += cycleCounter * X;
                     }
-
                     break;
                 case "addx":
                     cycleCounter++;
@@ -40,17 +39,14 @@ public class Day10
 
                     var V = int.Parse(line.Split(" ")[1]);
                     X += V;
-
                     break;
-
             }
-
         }
 
         return signalStrength;
     }
 
-    public static int Part2(string inputFilePath)
+    public static string Part2(string inputFilePath)
     {
         var cycleCounter = 0;
         var X = 1;
@@ -108,21 +104,20 @@ public class Day10
                         X += V;
                     }
                     break;
-
             }
-
         }
 
-        PrintCRT(framebuffer.ToString());
-
-        return -1;
+        return string.Join('\n', PrintCRT(framebuffer));
     }
 
-    public static void PrintCRT(string framebuffer)
+    public static string[] PrintCRT(StringBuilder framebuffer)
     {
+        List<string> tmp = new();
+        string tmp2 = framebuffer.ToString();
         for (int x = 0; x < 6; x++)
         {
-            Console.WriteLine(framebuffer.Substring(40 * x, 40));
+            tmp.Add(tmp2.Substring(40 * x, 40));
         }
+        return tmp.ToArray();
     }
 }
