@@ -42,4 +42,7 @@ Console.WriteLine("--- Day 10: Cathode-Ray Tube ---");
 Console.WriteLine($"Part 1: {Day10.Part1("./inputs/day10")}");
 Console.WriteLine($"Part 2: {'\n' + Day10.Part2("./inputs/day10")}");
 
+Console.WriteLine("--- Day 11: Monkey in the Middle ---");
+Console.WriteLine($"Part 1: {Day11.Part1("./inputs/day11")}");
+
 Console.WriteLine("Have a good one! 👋");
