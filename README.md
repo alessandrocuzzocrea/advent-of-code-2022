@@ -12,3 +12,5 @@
 [Day 8: Treetop Tree House](AOC2022.Solutions/src/Day8.cs)  
 [Day 9: Rope Bridge](AOC2022.Solutions/src/Day9.cs)  
 [Day 10: Cathode-Ray Tube](AOC2022.Solutions/src/Day10.cs)  
+[Day 11: Monkey in the Middle](AOC2022.Solutions/src/Day11.cs)  
+[Day 12: Hill Climbing Algorithm](AOC2022.Solutions/src/Day12.cs)  
