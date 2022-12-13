@@ -17,7 +17,8 @@ public class Day12
     public static int Part1(string inputFilePath)
     {
         var lines = File.ReadAllLines(inputFilePath);
-        var ans = new Solver(lines).solve();
+        // var ans = new Solver(lines).solve();
+        var ans = new Solver(lines).Solve2();
 
         return ans;
     }
@@ -160,12 +161,71 @@ public class Day12
         }
     }
 
+    public class Node : IEquatable<Node>
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+        public int G { get; set; }
+        public int H { get; set; }
+        public int F { get { return G + H; } }
+        public char Value { get; set; }
+        public char OGChar { get; set; }
+        public Node Parent { get; set; }
+
+        public Node(int x, int y, char value)
+        {
+            this.x = x;
+            this.y = y;
+            Value = value;
+        }
+
+        public bool Equals(Node? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (x == other.x && y == other.y)
+            {
+                return true;
+
+            }
+
+            return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+
+            Direction? dirObj = obj as Direction;
+
+            if (obj == null) return false;
+            return Equals(dirObj);
+        }
+
+        public override int GetHashCode()
+        {
+            return $"{x},{y}".GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"x: {x}, y: {y}, char:{OGChar}";
+        }
+    }
+
     public class Solver
     {
         public HeightMap maze;
+        private List<Node> openList;
+        private List<Node> closedList;
         public Solver(string[] heightMapData)
         {
-            this.maze = new HeightMap(heightMapData);
+            maze = new HeightMap(heightMapData);
+
+            openList = new List<Node>();
+            closedList = new List<Node>();
         }
 
         public int solve()
@@ -173,6 +233,136 @@ public class Day12
             char[,] footprints = new char[maze.Height, maze.Width];
 
             return dfs(new Direction { x = maze.S.Item1, y = maze.S.Item2 }, Array.Empty<Direction>(), footprints, 0);
+        }
+
+        public int Solve2()
+        {
+            // char[,] footprints = new char[maze.Height, maze.Width];
+
+            // return dfs(new Direction { x = maze.S.Item1, y = maze.S.Item2 }, Array.Empty<Direction>(), footprints, 0);
+            var startNode = new Node(maze.S.Item1, maze.S.Item2, 'S')
+            {
+                OGChar = 'S'
+            };
+            var endNode = new Node(maze.E.Item1, maze.E.Item2, 'E') { OGChar = 'E' };
+
+            startNode.G = 0;
+            startNode.H = CalcH(startNode, endNode);
+
+            openList.Add(startNode);
+
+            while (openList.Count > 0)
+            {
+                var currentNode = GetLowestFScoreNode();
+
+                if (currentNode.Equals(endNode))
+                {
+                    return currentNode.G;
+                }
+
+                openList.Remove(currentNode);
+                closedList.Add(currentNode);
+
+                var neighbors = GetNeighbors(currentNode);
+                foreach (var neighbor in neighbors)
+                {
+                    if (closedList.Contains(neighbor))
+                    {
+                        continue;
+                    }
+
+                    neighbor.G = currentNode.G + 1;
+                    neighbor.H = CalcH(neighbor, endNode);
+                    neighbor.Parent = currentNode;
+
+                    // foreach (Node openNode in openList)
+                    // {
+                    //     if (neighbor.Equals(openNode) && neighbor.G > openNode.G)
+                    //     {
+                    //         continue;
+                    //     }
+                    //     else
+                    //     {
+                    //         // neighbor.Parent = currentNode;
+                    //         // openList.Add(neighbor);
+                    //     }
+                    // })
+                    if (!openList.Contains(neighbor))
+                    {
+                        openList.Add(neighbor);
+                    }
+                }
+
+            }
+            return -1;
+        }
+
+        public bool IsPossibleDestination2(Node curr, Node child)
+        {
+            // if (!visited.ToList().Contains(dest))
+            // {
+            if (child.x >= 0 && child.x < maze.Width && child.y >= 0 && child.y < maze.Height)
+            {
+                // var currValue = maze[curr.y][curr.x];
+                var currValue = maze.GetCharacter(curr.x, curr.y);
+
+                // var destValue = maze[dest.y][dest.x];
+                var destValue = maze.GetCharacter(child.x, child.y);
+
+                child.OGChar = destValue;
+
+                if (currValue == 'S')
+                {
+                    currValue = 'a';
+                }
+
+                if (destValue == 'E')
+                {
+                    destValue = 'z';
+                }
+
+                if (currValue >= destValue || currValue + 1 == destValue)
+                {
+                    return true;
+                }
+            }
+            // }
+            return false;
+        }
+
+        public List<Node> GetNeighbors(Node curr)
+        {
+            List<Node> res = new();
+
+            // up
+            var up = new Node(curr.x, curr.y - 1, '^');
+            if (IsPossibleDestination2(curr, up))
+            {
+                res.Add(up);
+            };
+
+            // right
+            var right = new Node(curr.x + 1, curr.y, '>');
+            if (IsPossibleDestination2(curr, right))
+            {
+                res.Add(right);
+            };
+
+            // down
+            var down = new Node(curr.x, curr.y + 1, 'v');
+            if (IsPossibleDestination2(curr, down))
+            {
+                res.Add(down);
+            };
+
+            // left
+            var left = new Node(curr.x - 1, curr.y, '<');
+            if (IsPossibleDestination2(curr, left))
+            {
+                res.Add(left);
+            };
+
+            return res;
         }
 
         public List<Direction> GetPossibleDestinations(Direction curr, Direction[] visited)
@@ -239,6 +429,25 @@ public class Day12
                 }
             }
             return false;
+        }
+
+        public int CalcH(Node current, Node end)
+        {
+            return Math.Abs(current.x - end.x) + Math.Abs(current.y - end.y);
+        }
+
+        public Node GetLowestFScoreNode()
+        {
+            Node lowest = openList[0];
+            foreach (Node n in openList)
+            {
+                if (n.F < lowest.F)
+                {
+                    lowest = n;
+                }
+            }
+
+            return lowest;
         }
 
         public int dfs(Direction curr, Direction[] visited, char[,] footprints, int steps)
