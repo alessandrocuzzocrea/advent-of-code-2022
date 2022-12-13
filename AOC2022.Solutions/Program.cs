@@ -45,4 +45,8 @@ Console.WriteLine($"Part 2: {'\n' + Day10.Part2("./inputs/day10")}");
 Console.WriteLine("--- Day 11: Monkey in the Middle ---");
 Console.WriteLine($"Part 1: {Day11.Part1("./inputs/day11")}");
 
+Console.WriteLine("--- Day 12: Hill Climbing Algorithm ---");
+Console.WriteLine($"Part 1: {Day12.Part1("./inputs/day12")}");
+// Console.WriteLine($"Part 1: {Day12.Part1("./inputs/day12-example")}");
+
 Console.WriteLine("Have a good one! 👋");
