@@ -23,6 +23,15 @@ public class Day12
         return ans;
     }
 
+    public static int Part2(string inputFilePath)
+    {
+        var lines = File.ReadAllLines(inputFilePath);
+        // var ans = new Solver(lines).solve();
+        var ans = new Solver(lines).Solve3();
+
+        return ans;
+    }
+
     public class Direction : IEquatable<Direction>
     {
         public char dir = '.';
@@ -295,6 +304,104 @@ public class Day12
 
             }
             return -1;
+        }
+
+        public int AStar(Node startNode, Node endNode)
+        {
+            // return dfs(new Direction { x = maze.S.Item1, y = maze.S.Item2 }, Array.Empty<Direction>(), footprints, 0);
+            // var startNode = new Node(maze.S.Item1, maze.S.Item2, 'S')
+            // {
+            //     OGChar = 'S'
+            // };
+
+            startNode.G = 0;
+            startNode.H = CalcH(startNode, endNode);
+
+            openList.Add(startNode);
+
+            while (openList.Count > 0)
+            {
+                var currentNode = GetLowestFScoreNode();
+
+                if (currentNode.Equals(endNode))
+                {
+                    return currentNode.G;
+                }
+
+                openList.Remove(currentNode);
+                closedList.Add(currentNode);
+
+                var neighbors = GetNeighbors(currentNode);
+                foreach (var neighbor in neighbors)
+                {
+                    if (closedList.Contains(neighbor))
+                    {
+                        continue;
+                    }
+
+                    neighbor.G = currentNode.G + 1;
+                    neighbor.H = CalcH(neighbor, endNode);
+                    neighbor.Parent = currentNode;
+
+                    // foreach (Node openNode in openList)
+                    // {
+                    //     if (neighbor.Equals(openNode) && neighbor.G > openNode.G)
+                    //     {
+                    //         continue;
+                    //     }
+                    //     else
+                    //     {
+                    //         // neighbor.Parent = currentNode;
+                    //         // openList.Add(neighbor);
+                    //     }
+                    // })
+                    if (!openList.Contains(neighbor))
+                    {
+                        openList.Add(neighbor);
+                    }
+                }
+
+            }
+            return int.MaxValue;
+        }
+
+        public int Solve3()
+        {
+            List<(int x, int y, int steps)> results = new();
+
+            List<Node> ANodes = FindAllAs(maze);
+            var endNode = new Node(maze.E.Item1, maze.E.Item2, 'E') { OGChar = 'E' };
+
+            for (var i = 0; i < ANodes.Count; i++)
+            {
+                // Console.WriteLine($"Progress {i}/{ANodes.Count}");
+                var startNode = ANodes[i];
+                openList.Clear();
+                closedList.Clear();
+                var steps = AStar(startNode, endNode);
+                results.Add((startNode.x, startNode.y, steps));
+            }
+
+            results.Sort((x, y) => x.steps.CompareTo(y.steps));
+
+            return results[0].steps;
+        }
+
+        private List<Node> FindAllAs(HeightMap maze)
+        {
+            List<Node> res = new();
+            for (int y = 0; y < maze.Height; y++)
+            {
+                for (int x = 0; x < maze.Width; x++)
+                {
+                    char c = maze.GetCharacter(x, y);
+                    if (c == 'S' || c == 'a')
+                    {
+                        res.Add(new Node(x, y, c));
+                    }
+                }
+            }
+            return res;
         }
 
         public bool IsPossibleDestination2(Node curr, Node child)

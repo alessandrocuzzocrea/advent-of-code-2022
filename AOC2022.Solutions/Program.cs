@@ -47,6 +47,6 @@ Console.WriteLine($"Part 1: {Day11.Part1("./inputs/day11")}");
 
 Console.WriteLine("--- Day 12: Hill Climbing Algorithm ---");
 Console.WriteLine($"Part 1: {Day12.Part1("./inputs/day12")}");
-// Console.WriteLine($"Part 1: {Day12.Part1("./inputs/day12-example")}");
+Console.WriteLine($"Part 2: {Day12.Part2("./inputs/day12")}");
 
 Console.WriteLine("Have a good one! 👋");

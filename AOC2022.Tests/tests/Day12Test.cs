@@ -8,7 +8,13 @@ public class Day12Test
     [Fact]
     public void Part1_IsCorrect_WhenUsingExampleInputFile()
     {
-        Assert.Equal(31, Day12.Part1("./inputs/day12-example"));
+        Assert.Equal(31, Part1("./inputs/day12-example"));
+    }
+
+    [Fact]
+    public void Part2_IsCorrect_WhenUsingExampleInputFile()
+    {
+        Assert.Equal(29, Part2("./inputs/day12-example"));
     }
 
     [Fact]
