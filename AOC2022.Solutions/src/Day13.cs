@@ -9,21 +9,53 @@ public class Day13
 
         for (int x = 0; x < lines.Length; x += 3)
         {
-            var pair = x / 3 + 1;
+            var pairNo = x / 3 + 1;
 
-            var lStr = lines[x + 0];
-            var rStr = lines[x + 1];
+            var l = ParsePacket(lines[x + 0]);
+            var r = ParsePacket(lines[x + 1]);
 
-            var left = ParsePacket(lStr);
-            var right = ParsePacket(rStr);
-
-            if (Compare(left, right))
+            if (RightOrder(l, r))
             {
-                rightOrderSum += pair;
+                rightOrderSum += pairNo;
             }
         }
 
         return rightOrderSum;
+    }
+
+    public static int Part2(string inputFilePath)
+    {
+        var lines = File.ReadAllLines(inputFilePath);
+
+        var divider1 = ("[[2]]", ParsePacket("[[2]]"));
+        var divider2 = ("[[6]]", ParsePacket("[[6]]"));
+
+        List<(string, List<object>)> packets = new() { divider1, divider2 };
+
+        for (int x = 0; x < lines.Length; x++)
+        {
+            var str = lines[x + 0];
+            if (string.Empty == str)
+            {
+                continue;
+            }
+
+            packets.Add((str, ParsePacket(str)));
+        }
+
+        packets.Sort(new PacketComparer());
+
+        var decoderKey = 1;
+        for (var i = 0; i < packets.Count; i++)
+        {
+            var packet = packets[i];
+            if (packet.Item1 == "[[2]]" || packet.Item1 == "[[6]]")
+            {
+                decoderKey *= i + 1;
+            }
+        }
+
+        return decoderKey;
     }
 
     public static List<object> ParsePacket(string s)
@@ -69,7 +101,18 @@ public class Day13
         return first[0] as List<object>;
     }
 
-    public static bool Compare(List<object> left, List<object> right)
+    public static bool RightOrder(List<object> left, List<object> right)
+    {
+        var res = ComparePackets(left, right);
+        if (res == 0)
+        {
+            throw new InvalidOperationException();
+        }
+
+        return res < 0;
+    }
+
+    public static int ComparePackets(List<object> left, List<object> right)
     {
         while (left.Count > 0 && right.Count > 0)
         {
@@ -80,27 +123,30 @@ public class Day13
 
                 if (elementL < elementR)
                 {
-                    return true;
+                    return -1;
                 }
                 else if (elementL > elementR)
                 {
-                    return false;
-                }
-                else
-                {
-                    left.RemoveAt(0);
-                    right.RemoveAt(0);
+                    return 1;
                 }
             }
             else
             if (left[0] is int && !(right[0] is int))
             {
-                return Compare(new List<object>() { (int)left[0] }, right[0] as List<object>);
+                var res = ComparePackets(new List<object>() { (int)left[0] }, right[0] as List<object>);
+                if (res != 0)
+                {
+                    return res;
+                }
             }
             else
             if (!(left[0] is int) && right[0] is int)
             {
-                return Compare(left[0] as List<object>, new List<object>() { (int)right[0] });
+                var res = ComparePackets(left[0] as List<object>, new List<object>() { (int)right[0] });
+                if (res != 0)
+                {
+                    return res;
+                }
             }
             else
             {
@@ -108,26 +154,36 @@ public class Day13
                 var listR = right[0] as List<object>;
                 if (listL.Count > 0 || listR.Count > 0)
                 {
-                    return Compare(listL, listR);
-                }
-                else
-                {
-                    left.RemoveAt(0);
-                    right.RemoveAt(0);
+                    var res = ComparePackets(listL, listR);
+                    if (res != 0)
+                    {
+                        return res;
+                    }
                 }
             }
+
+            left.RemoveAt(0);
+            right.RemoveAt(0);
+        }
+
+        if (left.Count == 0 && right.Count == 0)
+        {
+            return 0;
         }
 
         if (left.Count == 0)
         {
-            return true;
+            return -1;
         }
 
-        if (right.Count == 0)
+        return 1;
+    }
+
+    public class PacketComparer : IComparer<(string str, List<object>)>
+    {
+        public int Compare((string str, List<object>) packet1, (string str, List<object>) packet2)
         {
-            return false;
+            return ComparePackets(ParsePacket(packet1.str), ParsePacket(packet2.str));
         }
-
-        throw new InvalidOperationException();
     }
 }

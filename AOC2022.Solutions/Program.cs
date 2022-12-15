@@ -51,6 +51,6 @@ Console.WriteLine($"Part 2: {Day12.Part2("./inputs/day12")}");
 
 Console.WriteLine("--- Day 13: Distress Signal ---");
 Console.WriteLine($"Part 1: {Day13.Part1("./inputs/day13")}");
-// Console.WriteLine($"Part 2: {Day13.Part2("./inputs/day13")}");
+Console.WriteLine($"Part 2: {Day13.Part2("./inputs/day13")}");
 
 Console.WriteLine("Have a good one! 👋");
