@@ -59,5 +59,6 @@ Console.WriteLine($"Part 2: {Day14.Part2("./inputs/day14")}");
 
 Console.WriteLine("--- Day 15: Beacon Exclusion Zone ---");
 Console.WriteLine($"Part 1: {Day15.Part1("./inputs/day15", 2000000)}");
+Console.WriteLine($"Part 1: {Day15.Part2("./inputs/day15", 4_000_000)}");
 
 Console.WriteLine("Have a good one! 👋");

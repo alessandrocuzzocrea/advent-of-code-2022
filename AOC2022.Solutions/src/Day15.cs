@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace AOC2022.Solutions;
@@ -8,7 +9,6 @@ public class Day15
     {
         var lines = File.ReadAllLines(inputFilePath);
 
-        // process
         List<Sensor> sensors = new();
         foreach (var line in lines)
         {
@@ -19,7 +19,6 @@ public class Day15
             var beaconY = int.Parse(m[3].Value);
 
             sensors.Add(new Sensor((sensorX, sensorY), (beaconX, beaconY)));
-
         }
 
         var minX = int.MaxValue;
@@ -30,52 +29,31 @@ public class Day15
 
         foreach (var sensor in sensors)
         {
-            minX = int.Min(minX, sensor.Position.x - sensor.Distance);
-            maxX = int.Max(maxX, sensor.Position.x + sensor.Distance);
+            minX = int.Min(minX, sensor.MinX);
+            maxX = int.Max(maxX, sensor.MaxX);
 
-            minY = int.Min(minY, sensor.Position.y - sensor.Distance);
-            maxY = int.Max(maxY, sensor.Position.y + sensor.Distance);
+            minY = int.Min(minY, sensor.MinY);
+            maxY = int.Max(maxY, sensor.MaxX);
         }
 
-        // var xOffset = -minX;
-        // var yOffset = -minY;
-
-        // List<List<char>> grid = new();
         var grid = new Cave(minX, maxX, minY, maxY);
 
-        // for (int y = minY; y <= maxY; y++)
-        // {
-        //     grid.Add(new List<char>());
-
-        //     for (int x = minX; x <= maxX; x++)
-        //     {
-        //         grid[y + yOffset].Add('.');
-        //     }
-        // }
-
-        // var width = grid[0].Count;
-        // var height = grid.Count;
-
-        // var width = maxX - minX;
-        // var height = maxY - minY;
-
-        // PrintGrid(width, height, grid, yOffset);
-
-        // var sensorProgress = 
-
-        // foreach (var sensor in sensors)
         for (var i = 0; i < sensors.Count; i++)
         {
             var sensor = sensors[i];
 
-            for (var x = grid.minX; x <= grid.maxX; x++)
+            for (var y = grid.minY; y <= grid.maxY; y++)
             {
-                var dist = Math.Abs(x - sensor.Position.x) + Math.Abs(targetRow - sensor.Position.y);
-                if (dist <= sensor.Distance)
+                for (var x = grid.minX; x <= grid.maxX; x++)
                 {
-                    grid[x, targetRow] = '#';
+                    var dist = Math.Abs(x - sensor.Position.x) + Math.Abs(y - sensor.Position.y);
+                    if (dist <= sensor.Distance)
+                    {
+                        grid[x, y] = '#';
+                    }
                 }
             }
+
         }
 
         foreach (var sensor in sensors)
@@ -84,39 +62,107 @@ public class Day15
             grid[sensor.ClosestBeaconPosition.x, sensor.ClosestBeaconPosition.y] = 'B';
         }
 
-        // grid.PrintGrid();
+        // grid.Print();
 
         var lollo = grid.RowPossibleBeaconPositions(targetRow);
 
         return lollo;
     }
 
-    public static int Part2(string inputFilePath)
+    public static long Part2(string inputFilePath, int limit)
     {
         var lines = File.ReadAllLines(inputFilePath);
 
-        // process
-        List<List<(int, int)>> scans = new();
-        foreach (var line in lines)
+        List<Sensor> sensors = new();
+        for (var i = 0; i < lines.Length; i++)
         {
+            var line = lines[i];
+            var m = Regex.Matches(line, @"-?\d+");
+            var sensorX = int.Parse(m[0].Value);
+            var sensorY = int.Parse(m[1].Value);
+            var beaconX = int.Parse(m[2].Value);
+            var beaconY = int.Parse(m[3].Value);
+
+            sensors.Add(new Sensor((sensorX, sensorY), (beaconX, beaconY)));
         }
 
-        return -1;
-    }
+        var minX = int.MaxValue;
+        var maxX = int.MinValue;
 
-    // public static void PrintGrid(int width, int height, Cave grid, int yOffset)
-    // {
-    //     for (int y = 0; y < height; y++)
-    //     {
-    //         var tmp = string.Format("{0,3}", y - yOffset);
-    //         Console.Write($"{tmp}: ");
-    //         for (int x = 0; x < width; x++)
-    //         {
-    //             Console.Write(grid[x, y]);
-    //         }
-    //         Console.Write('\n');
-    //     }
-    // }
+        var minY = int.MaxValue;
+        var maxY = int.MinValue;
+
+        foreach (var sensor in sensors)
+        {
+            minX = int.Min(minX, sensor.MinX);
+            maxX = int.Max(maxX, sensor.MaxX);
+
+            minY = int.Min(minY, sensor.MinY);
+            maxY = int.Max(maxY, sensor.MaxX);
+        }
+
+        var grid = new Cave(minX, maxX, minY, maxY);
+
+        var targetX = -1;
+        var targetY = -1;
+
+        for (var y = 0; y <= limit; y++)
+        {
+            List<(int startX, int endX)> intervals = new();
+
+            foreach (var sensor in sensors)
+            {
+                var (startX, endX) = sensor.GetMaxMinXPerRow(y);
+
+                if (startX < 0)
+                {
+                    startX = 0;
+                }
+
+                if (endX > limit)
+                {
+                    endX = limit;
+                }
+
+                if (startX.HasValue && endX.HasValue)
+                {
+                    if (startX <= limit && endX >= 0)
+                    {
+                        intervals.Add((startX.Value, endX.Value));
+                    }
+                }
+            }
+
+            intervals.Sort((x, y) => x.startX - y.startX);
+
+            List<(int startX, int endX)> mergedIntervals = new List<(int startX, int endX)>();
+
+            (int startX, int endX) currentInterval = intervals.First();
+
+            foreach (var interval in intervals.Skip(1))
+            {
+                if (currentInterval.endX + 1 >= interval.startX)
+                {
+                    currentInterval.endX = Math.Max(currentInterval.endX, interval.endX);
+                }
+                else
+                {
+                    mergedIntervals.Add(currentInterval);
+                    currentInterval = interval;
+                }
+            }
+
+            mergedIntervals.Add(currentInterval);
+
+            if (mergedIntervals.Count > 1)
+            {
+                targetX = mergedIntervals.First().endX + 1;
+                targetY = y;
+            }
+        }
+
+        return targetX * 4_000_000L + targetY;
+    }
 
     public class Sensor
     {
@@ -141,22 +187,40 @@ public class Day15
             MaxX = Position.x + Distance;
         }
 
-        // private int CalculateDistance()
-        // {
-        //     var xDiff = ClosestBeaconPosition.x - Position.x;
-        //     var yDiff = ClosestBeaconPosition.y - Position.y;
-        //     return (int)Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
-        // }
-
         public int CalculateDistance()
         {
-            return Math.Abs(ClosestBeaconPosition.x - Position.x) + Math.Abs(ClosestBeaconPosition.y - Position.y);
+            return CalculateToPoint(ClosestBeaconPosition.x, ClosestBeaconPosition.y);
+        }
+
+        public int CalculateToPoint(int x, int y)
+        {
+            return Math.Abs(x - Position.x) + Math.Abs(y - Position.y);
+        }
+
+        public (int? minX, int? maxX) GetMaxMinXPerRow(int row)
+        {
+            int? minXPerRow = null;
+            int? maxXPerRow = null;
+
+            if (row >= Position.y - Distance && row <= Position.y + Distance)
+            {
+                var rowX = Position.x;
+                var rowY = row;
+
+                var distanceToPoint = CalculateToPoint(rowX, rowY);
+                var distanceDiff = Distance - distanceToPoint;
+
+                minXPerRow = Position.x - distanceDiff;
+                maxXPerRow = Position.x + distanceDiff;
+            }
+
+            return (minXPerRow, maxXPerRow);
         }
     }
 
     public class Cave
     {
-        Dictionary<(int x, int y), char> _cells = new();
+        readonly Dictionary<(int x, int y), char> _cells = new();
 
         public int minX { get; }
         public int maxX { get; }
@@ -203,7 +267,17 @@ public class Day15
             return count;
         }
 
-        public void PrintGrid()
+        public string GetRow(int row)
+        {
+            var sb = new StringBuilder();
+            for (var x = minX; x <= maxX; x++)
+            {
+                sb.Append(this[x, row]);
+            }
+            return sb.ToString();
+        }
+
+        public void Print()
         {
             for (int y = minY; y <= maxY; y++)
             {
