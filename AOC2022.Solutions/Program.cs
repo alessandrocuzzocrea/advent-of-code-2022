@@ -55,6 +55,6 @@ Console.WriteLine($"Part 2: {Day13.Part2("./inputs/day13")}");
 
 Console.WriteLine("--- Day 14: Regolith Reservoir ---");
 Console.WriteLine($"Part 1: {Day14.Part1("./inputs/day14")}");
-// Console.WriteLine($"Part 2: {Day14.Part2("./inputs/day14-example")}");
+Console.WriteLine($"Part 2: {Day14.Part2("./inputs/day14")}");
 
 Console.WriteLine("Have a good one! 👋");

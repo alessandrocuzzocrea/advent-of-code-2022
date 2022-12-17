@@ -165,6 +165,173 @@ public class Day14
         return uos - 1;
     }
 
+    public static int Part2(string inputFilePath)
+    {
+        var lines = File.ReadAllLines(inputFilePath);
+
+        // process
+        List<List<(int, int)>> scans = new();
+        foreach (var line in lines)
+        {
+            var tokens = line.Split(" -> ");
+            List<(int, int)> t = new();
+            scans.Add(t);
+            foreach (var token in tokens)
+            {
+                var tmp = token.Split(',');
+                var origin = int.Parse(tmp[0]);
+                var dir = int.Parse(tmp[1]);
+                t.Add((origin, dir));
+            }
+        }
+
+        var realMinX = int.MaxValue;
+        var realMaxX = 0;
+        var maxY = 0;
+
+        foreach (var scan in scans)
+        {
+            foreach (var idk in scan)
+            {
+                realMinX = int.Min(realMinX, idk.Item1);
+                realMaxX = int.Max(realMaxX, idk.Item1);
+                maxY = int.Max(maxY, idk.Item2);
+            }
+        }
+
+        var maxX = realMaxX;
+        // var minX = 0;
+
+        var width = maxX * 2 + 1;
+        var height = maxY + 1 + 2;
+
+        List<List<char>> grid = new();
+        for (int y = 0; y < height; y++)
+        {
+            grid.Add(new List<char>());
+            for (int x = 0; x < width; x++)
+            {
+                if (y == height - 1)
+                {
+                    grid[y].Add('#');
+                }
+                else
+                {
+                    grid[y].Add('.');
+                }
+            }
+        }
+
+
+        foreach (var scan in scans)
+        {
+            var cursorX = scan[0].Item1;
+            var cursorY = scan[0].Item2;
+
+            for (var i = 1; i < scan.Count; i++)
+            {
+                var endCursorX = scan[i].Item1;
+                var endCursorY = scan[i].Item2;
+
+                var points = GetPoints(cursorX, cursorY, endCursorX, endCursorY);
+                AddRocks(points, grid);
+
+                cursorX = endCursorX;
+                cursorY = endCursorY;
+            }
+        }
+
+        // PrintGrid(width, height, grid);
+
+        var sandOrigin = 500;
+
+        //Simulate
+        var ticks = 0;
+        var uos = 0;
+        var overflown = false;
+
+        while (!overflown)
+        {
+            var sandX = sandOrigin;
+            var sandY = 0;
+
+            var stopped = false;
+
+            uos++;
+            while (!stopped)
+            {
+                ticks++;
+
+                // if (WithinBounds(sandY + 1, sandX, grid))
+                // {
+                if (grid[sandY][sandX] != '.')
+                {
+                    grid[sandY][sandX] = 'F';
+                    overflown = true;
+                    break;
+                }
+                // }
+
+                if (WithinBounds(sandY + 1, sandX, grid))
+                {
+                    if (grid[sandY + 1][sandX] == '.')
+                    {
+                        sandY++;
+                        continue;
+                    }
+                }
+                else
+                {
+                    grid[sandY][sandX] = 'F';
+                    overflown = true;
+                    break;
+                }
+
+                if (WithinBounds(sandY + 1, sandX - 1, grid))
+                {
+                    if (grid[sandY + 1][sandX - 1] == '.')
+                    {
+                        sandY++;
+                        sandX--;
+                        continue;
+                    }
+                }
+                else
+                {
+                    grid[sandY][sandX] = 'F';
+                    overflown = true;
+                    break;
+                }
+
+                if (WithinBounds(sandY + 1, sandX + 1, grid))
+                {
+                    if (grid[sandY + 1][sandX + 1] == '.')
+                    {
+                        sandY++;
+                        sandX++;
+                        continue;
+                    }
+                }
+                else
+                {
+                    grid[sandY][sandX] = 'F';
+                    overflown = true;
+                    break;
+                }
+
+                stopped = true;
+                grid[sandY][sandX] = 'o';
+                // PrintGrid(width, height, grid);
+
+            }
+
+        }
+
+        // PrintGrid(width, height, grid);
+
+        return uos - 1;
+    }
+
     public static void PrintGrid(int width, int height, List<List<char>> grid)
     {
         for (int y = 0; y < height; y++)
