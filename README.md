@@ -15,3 +15,4 @@
 [Day 11: Monkey in the Middle](AOC2022.Solutions/src/Day11.cs)  
 [Day 12: Hill Climbing Algorithm](AOC2022.Solutions/src/Day12.cs)  
 [Day 13: Distress Signal](AOC2022.Solutions/src/Day13.cs)  
+[Day 14: Regolith Reservoir](AOC2022.Solutions/src/Day14.cs)  
