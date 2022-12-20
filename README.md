@@ -17,3 +17,4 @@
 [Day 13: Distress Signal](AOC2022.Solutions/src/Day13.cs)  
 [Day 14: Regolith Reservoir](AOC2022.Solutions/src/Day14.cs)  
 [Day 15: Beacon Exclusion Zone](AOC2022.Solutions/src/Day15.cs)  
+[Day 16: Proboscidea Volcanium](AOC2022.Solutions/src/Day16.cs)  
