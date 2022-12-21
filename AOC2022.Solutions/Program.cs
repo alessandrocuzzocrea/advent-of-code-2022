@@ -70,6 +70,9 @@ Console.WriteLine($"Part 1: {Day17.Part1("./inputs/day17", 2022)}");
 Console.WriteLine("--- Day 18: Boiling Boulders ---");
 Console.WriteLine($"Part 1: {Day18.Part1("./inputs/day18")}");
 
+Console.WriteLine("--- Day 19: Not Enough Minerals ---");
+Console.WriteLine($"Part 1: {Day19.Part1("./inputs/day19")}");
+
 Console.WriteLine("--- Day 20: Grove Positioning System ---");
 Console.WriteLine($"Part 1: {Day20.Part1("./inputs/day20")}");
 
