@@ -23,42 +23,24 @@ public class Day18
             ));
         }
 
+        var directions = new List<(int x, int y, int z)>
+        {
+            ( x: 1, y: 0, z: 0 ),
+            ( x: -1,y : 0,z : 0 ),
+            ( x: 0, y: 1, z: 0 ),
+            ( x: 0, y: -1,z : 0 ),
+            ( x: 0, y: 0, z: 1 ),
+            ( x: 0, y: 0, z: -1)
+        };
+
         foreach (var (x, y, z) in cubes)
         {
-            //Top
-            if (!cubes.Contains((x, y + 1, z)))
+            foreach (var direction in directions)
             {
-                faces++;
-            }
-
-            //Bottom
-            if (!cubes.Contains((x, y - 1, z)))
-            {
-                faces++;
-            }
-
-            //Front
-            if (!cubes.Contains((x, y, z + 1)))
-            {
-                faces++;
-            }
-
-            //Back
-            if (!cubes.Contains((x, y, z - 1)))
-            {
-                faces++;
-            }
-
-            //Left
-            if (!cubes.Contains((x - 1, y, z)))
-            {
-                faces++;
-            }
-
-            //Right
-            if (!cubes.Contains((x + 1, y, z)))
-            {
-                faces++;
+                if (!cubes.Contains((x + direction.x, y + direction.y, z + direction.z)))
+                {
+                    faces++;
+                }
             }
         }
 
