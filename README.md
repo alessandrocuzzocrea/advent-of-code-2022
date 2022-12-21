@@ -18,3 +18,5 @@
 [Day 14: Regolith Reservoir](AOC2022.Solutions/src/Day14.cs)  
 [Day 15: Beacon Exclusion Zone](AOC2022.Solutions/src/Day15.cs)  
 [Day 16: Proboscidea Volcanium](AOC2022.Solutions/src/Day16.cs)  
+[Day 17: Pyroclastic Flow](AOC2022.Solutions/src/Day17.cs)  
+[Day 18: Boiling Boulders](AOC2022.Solutions/src/Day18.cs)  
