@@ -68,4 +68,7 @@ Console.WriteLine("--- Day 17: Pyroclastic Flow  ---");
 Console.WriteLine($"Part 1: {Day17.Part1("./inputs/day17", 2022)}");
 // Console.WriteLine($"Part 2: {Day17.Part1("./inputs/day17", 10_0000_0000_000)}");
 
+Console.WriteLine("--- Day 18: Boiling Boulders ---");
+Console.WriteLine($"Part 1: {Day18.Part1("./inputs/day18")}");
+
 Console.WriteLine("Have a good one! 👋");
