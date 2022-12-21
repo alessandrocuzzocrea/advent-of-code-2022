@@ -64,4 +64,8 @@ Console.WriteLine($"Part 1: {Day15.Part2("./inputs/day15", 4_000_000)}");
 Console.WriteLine("--- Day 16: Proboscidea Volcanium ---");
 Console.WriteLine($"Part 1: {Day16.Part1("./inputs/day16")}");
 
+Console.WriteLine("--- Day 17: Pyroclastic Flow  ---");
+Console.WriteLine($"Part 1: {Day17.Part1("./inputs/day17", 2022)}");
+// Console.WriteLine($"Part 2: {Day17.Part1("./inputs/day17", 10_0000_0000_000)}");
+
 Console.WriteLine("Have a good one! 👋");
