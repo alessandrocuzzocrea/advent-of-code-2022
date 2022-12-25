@@ -14,19 +14,15 @@ public class Day20
 
     public class Mixer
     {
-        public List<(int originalIndex, int number)> OriginalNumbers = new();
-        public List<(int originalIndex, int number)> MixedNumbers = new();
+        public List<(int originalIndex, int number)> OriginalNumbers { get; }
+        public List<(int originalIndex, int number)> MixedNumbers { get; }
 
         private int currentIndex = 0;
 
         public Mixer(string[] lines)
         {
-            for (var i = 0; i < lines.Length; i++)
-            {
-                var line = lines[i];
-                OriginalNumbers.Add((i, int.Parse(line)));
-                MixedNumbers.Add((i, int.Parse(line)));
-            }
+            OriginalNumbers = lines.Select((line, i) => (i, int.Parse(line))).ToList();
+            MixedNumbers = new List<(int, int)>(OriginalNumbers);
         }
 
         public void MixAll()
