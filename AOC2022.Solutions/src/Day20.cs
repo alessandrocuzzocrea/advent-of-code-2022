@@ -7,10 +7,7 @@ public class Day20
         var lines = File.ReadAllLines(inputFilePath);
 
         var mixer = new Mixer(lines);
-        for (int i = 0; i < lines.Length; i++)
-        {
-            mixer.Mix();
-        }
+        mixer.MixAll();
 
         return mixer.CalculateGrooveCoordinates();
     }
@@ -29,6 +26,14 @@ public class Day20
                 var line = lines[i];
                 OriginalNumbers.Add((i, int.Parse(line)));
                 MixedNumbers.Add((i, int.Parse(line)));
+            }
+        }
+
+        public void MixAll()
+        {
+            for (int i = 0; i < OriginalNumbers.Count; i++)
+            {
+                Mix();
             }
         }
 
@@ -53,7 +58,7 @@ public class Day20
 
         public int CalculateGrooveCoordinates()
         {
-            var grooveList = MixedNumbers.Select(omar => omar.number).ToList();
+            var grooveList = MixedNumbers.Select(item => item.number).ToList();
             var grooveIndex = grooveList.IndexOf(0);
             return grooveList[(grooveIndex + 1000) % grooveList.Count] +
                    grooveList[(grooveIndex + 2000) % grooveList.Count] +
@@ -62,7 +67,7 @@ public class Day20
 
         public List<int> ToList()
         {
-            return MixedNumbers.Select(item => item.Item2).ToList();
+            return MixedNumbers.Select(item => item.number).ToList();
         }
 
         public static int ModuloWrap(int arrayLength, int currentIndex, int currentNumber)
