@@ -74,4 +74,7 @@ Console.WriteLine($"Part 1: {Day18.Part1("./inputs/day18")}");
 Console.WriteLine("--- Day 20: Grove Positioning System ---");
 Console.WriteLine($"Part 1: {Day20.Part1("./inputs/day20")}");
 
+Console.WriteLine("--- Day 21: Monkey Math ---");
+Console.WriteLine($"Part 1: {Day21.Part1("./inputs/day21")}");
+
 Console.WriteLine("Have a good one! 👋");
