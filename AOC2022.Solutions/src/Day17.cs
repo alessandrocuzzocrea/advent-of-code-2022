@@ -11,7 +11,7 @@ public class Day17
         var i = 0;
         while (true)
         {
-            Console.WriteLine($"Rocks: {c.RocksCount}");
+            // Console.WriteLine($"Rocks: {c.RocksCount}");
 
             if (c.RocksCount > limit)
             {
@@ -176,12 +176,12 @@ public class Day17
 
             if (!CheckWallCollisions(newX, CurrentRockY))
             {
-                Console.WriteLine($"Jet {jet}");
+                // Console.WriteLine($"Jet {jet}");
                 CurrentRockX = newX;
             }
             else
             {
-                Console.WriteLine($"Jet {jet}... nothing happened");
+                // Console.WriteLine($"Jet {jet}... nothing happened");
             }
         }
 
@@ -195,11 +195,11 @@ public class Day17
                 storage.UnionWith(set);
                 CurrentRock = (CurrentRock + 1) % 5;
                 SpawnRock();
-                Console.WriteLine($"Falling down by 1.. collision!");
+                // Console.WriteLine($"Falling down by 1.. collision!");
             }
             else
             {
-                Console.WriteLine($"Falling down by 1");
+                // Console.WriteLine($"Falling down by 1");
                 CurrentRockY = newY;
             }
         }
