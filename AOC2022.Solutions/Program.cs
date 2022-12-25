@@ -66,7 +66,6 @@ Console.WriteLine($"Part 1: {Day16.Part1("./inputs/day16")}");
 
 Console.WriteLine("--- Day 17: Pyroclastic Flow  ---");
 Console.WriteLine($"Part 1: {Day17.Part1("./inputs/day17", 2022)}");
-// Console.WriteLine($"Part 2: {Day17.Part1("./inputs/day17", 10_0000_0000_000)}");
 
 Console.WriteLine("--- Day 18: Boiling Boulders ---");
 Console.WriteLine($"Part 1: {Day18.Part1("./inputs/day18")}");
@@ -76,5 +75,8 @@ Console.WriteLine($"Part 1: {Day20.Part1("./inputs/day20")}");
 
 Console.WriteLine("--- Day 21: Monkey Math ---");
 Console.WriteLine($"Part 1: {Day21.Part1("./inputs/day21")}");
+
+Console.WriteLine("--- Day 22: Monkey Map ---");
+Console.WriteLine($"Part 1: {Day22.Part1("./inputs/day22")}");
 
 Console.WriteLine("Have a good one! 👋");
