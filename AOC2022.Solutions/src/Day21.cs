@@ -34,25 +34,14 @@ public class Day21
             }
 
             string[] operands = operations[monkey].Split();
-
-            long result;
-            if (operands[1] == "+")
+            var result = operands[1] switch
             {
-                result = Evaluate(operands[0]) + Evaluate(operands[2]);
-            }
-            else if (operands[1] == "-")
-            {
-                result = Evaluate(operands[0]) - Evaluate(operands[2]);
-            }
-            else if (operands[1] == "*")
-            {
-                result = Evaluate(operands[0]) * Evaluate(operands[2]);
-            }
-            else //operands[1] == "/"
-            {
-                result = Evaluate(operands[0]) / Evaluate(operands[2]);
-            }
-
+                "+" => Evaluate(operands[0]) + Evaluate(operands[2]),
+                "-" => Evaluate(operands[0]) - Evaluate(operands[2]),
+                "*" => Evaluate(operands[0]) * Evaluate(operands[2]),
+                "/" => Evaluate(operands[0]) / Evaluate(operands[2]),
+                _ => throw new ArgumentException($"Invalid operator: {operands[1]}"),
+            };
             values[monkey] = result;
             processed.Add(monkey);
             return result;
