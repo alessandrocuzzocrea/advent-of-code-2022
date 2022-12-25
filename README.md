@@ -20,3 +20,4 @@
 [Day 16: Proboscidea Volcanium](AOC2022.Solutions/src/Day16.cs)  
 [Day 17: Pyroclastic Flow](AOC2022.Solutions/src/Day17.cs)  
 [Day 18: Boiling Boulders](AOC2022.Solutions/src/Day18.cs)  
+[Day 20: Grove Positioning System](AOC2022.Solutions/src/Day20.cs)  
