@@ -17,8 +17,8 @@ public class Day20
 
     public class Mixer
     {
-        public List<(int, int)> originalNumbers = new();
-        public List<(int, int)> mixedNumbers = new();
+        public List<(int originalIndex, int number)> OriginalNumbers = new();
+        public List<(int originalIndex, int number)> MixedNumbers = new();
 
         private int currentIndex = 0;
 
@@ -27,8 +27,8 @@ public class Day20
             for (var i = 0; i < lines.Length; i++)
             {
                 var line = lines[i];
-                originalNumbers.Add((i, int.Parse(line)));
-                mixedNumbers.Add((i, int.Parse(line)));
+                OriginalNumbers.Add((i, int.Parse(line)));
+                MixedNumbers.Add((i, int.Parse(line)));
             }
         }
 
@@ -36,43 +36,33 @@ public class Day20
         {
             var i = currentIndex;
 
-            (int, int) currentItem = originalNumbers[i];
+            (int, int) currentItem = OriginalNumbers[i];
             int number = currentItem.Item2;
-            int index = mixedNumbers.IndexOf(currentItem);
-            mixedNumbers.Remove(currentItem);
+            int index = MixedNumbers.IndexOf(currentItem);
+            MixedNumbers.Remove(currentItem);
 
-            var mixedIndex = ModuloWrap(mixedNumbers.Count, index, number);
+            var mixedIndex = ModuloWrap(MixedNumbers.Count, index, number);
             if (mixedIndex == 0)
             {
-                mixedIndex = mixedNumbers.Count;
+                mixedIndex = MixedNumbers.Count;
             }
-            mixedNumbers.Insert(mixedIndex, (-1, number));
+            MixedNumbers.Insert(mixedIndex, (-1, number));
 
             currentIndex++;
         }
 
         public int CalculateGrooveCoordinates()
         {
-            var grooveList = mixedNumbers.Select(omar => omar.Item2).ToList();
-
-            var groveCoords = new List<int>();
-            for (int i = 0; i < grooveList.Count; i++)
-            {
-                if (grooveList[i] == 0)
-                {
-                    groveCoords.Add(grooveList[(i + 1000) % grooveList.Count]);
-                    groveCoords.Add(grooveList[(i + 2000) % grooveList.Count]);
-                    groveCoords.Add(grooveList[(i + 3000) % grooveList.Count]);
-                    break;
-                }
-            }
-
-            return groveCoords.Sum();
+            var grooveList = MixedNumbers.Select(omar => omar.number).ToList();
+            var grooveIndex = grooveList.IndexOf(0);
+            return grooveList[(grooveIndex + 1000) % grooveList.Count] +
+                   grooveList[(grooveIndex + 2000) % grooveList.Count] +
+                   grooveList[(grooveIndex + 3000) % grooveList.Count];
         }
 
         public List<int> ToList()
         {
-            return mixedNumbers.Select(item => item.Item2).ToList();
+            return MixedNumbers.Select(item => item.Item2).ToList();
         }
 
         public static int ModuloWrap(int arrayLength, int currentIndex, int currentNumber)
