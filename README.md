@@ -20,6 +20,7 @@
 [Day 16: Proboscidea Volcanium](AOC2022.Solutions/src/Day16.cs)  
 [Day 17: Pyroclastic Flow](AOC2022.Solutions/src/Day17.cs)  
 [Day 18: Boiling Boulders](AOC2022.Solutions/src/Day18.cs)  
+[Day 19: Not Enough Minerals](AOC2022.Solutions/src/Day19.cs)  
 [Day 20: Grove Positioning System](AOC2022.Solutions/src/Day20.cs)  
 [Day 21: Monkey Math](AOC2022.Solutions/src/Day21.cs)  
 [Day 22: Monkey Map](AOC2022.Solutions/src/Day22.cs)  
