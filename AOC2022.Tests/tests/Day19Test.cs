@@ -11,6 +11,26 @@ public class Day19Test
         Assert.Equal(33, Part1("./inputs/day19-example"));
     }
 
+    [Fact]
+    public void Part2_IsCorrect_WhenUsingExampleInputFile()
+    {
+        Assert.Equal(56 * 62, Part2("./inputs/day19-example"));
+    }
+
+    [Fact]
+    public void Part2_IsCorrect_ForBlueprint1()
+    {
+        List<Blueprint> b = ParseAllBlueprints("./inputs/day19-example");
+        Assert.Equal(56, b[0].MaximizeGeodes2(32));
+    }
+
+    [Fact]
+    public void Part2_IsCorrect_ForBlueprint2()
+    {
+        List<Blueprint> b = ParseAllBlueprints("./inputs/day19-example");
+        Assert.Equal(62, b[1].MaximizeGeodes2(32));
+    }
+
     [Theory]
     [InlineData(1, 0)]
     [InlineData(2, 0)]

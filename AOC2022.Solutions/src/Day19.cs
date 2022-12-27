@@ -6,7 +6,16 @@ public class Day19
 {
     public static int Part1(string inputFilePath)
     {
-        return ParseAllBlueprints(inputFilePath).Sum(b => b.MaximizeGeodes(24));
+        return ParseAllBlueprints(inputFilePath)
+                .Sum(b => b.MaximizeGeodes(24));
+    }
+
+    public static int Part2(string inputFilePath)
+    {
+        return ParseAllBlueprints(inputFilePath)
+                .Take(3)
+                .Select(a => a.MaximizeGeodes2(32))
+                .Aggregate(1, (a, b) => a * b);
     }
 
     public static List<Blueprint> ParseAllBlueprints(string inputFilePath)
@@ -79,6 +88,30 @@ public class Day19
             );
 
             return s * BlueprintId;
+        }
+
+        public int MaximizeGeodes2(int timeLimit)
+        {
+            var dp = new Dictionary<(int currentTime, int timeLimit, int oreBots, int clayBots, int obsidianBots, int geodeBots, int ore, int clay, int obsidian, int geodes), int>();
+            var maxGeoBotsMinute = new int[timeLimit + 1];
+            Array.Fill(maxGeoBotsMinute, 0);
+
+            var s = CalculateQualityLevel(
+                (currentTime: 0,
+                timeLimit: timeLimit,
+                oreBots: 1,
+                clayBots: 0,
+                obsidianBots: 0,
+                geodeBots: 0,
+                ore: 0,
+                clay: 0,
+                obsidian: 0,
+                geodes: 0),
+                dp,
+                maxGeoBotsMinute
+            );
+
+            return s;
         }
 
         public int CalculateQualityLevel((int currentTime, int timeLimit, int oreBots, int clayBots, int obsidianBots, int geodeBots, int ore, int clay, int obsidian, int geodes) s, Dictionary<(int currentTime, int timeLimit, int oreBots, int clayBots, int obsidianBots, int geodeBots, int ore, int clay, int obsidian, int geodes), int> dp, int[] maxGeoBotsMinute)
