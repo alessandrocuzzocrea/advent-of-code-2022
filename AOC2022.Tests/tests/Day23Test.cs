@@ -11,6 +11,12 @@ public class Day23Test
     }
 
     [Fact]
+    public void Part2_IsCorrect_WhenUsingExampleInputFile()
+    {
+        Assert.Equal(20, Part2("./inputs/day23-example"));
+    }
+
+    [Fact]
     public void Part1_Example2_InitialState_Result()
     {
         Assert.Equal(3, Solve("./inputs/day23-example2", 0));

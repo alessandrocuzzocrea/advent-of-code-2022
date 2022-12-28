@@ -84,5 +84,7 @@ Console.WriteLine($"Part 1: {Day22.Part1("./inputs/day22")}");
 
 Console.WriteLine("--- Day 23: Unstable Diffusion  ---");
 Console.WriteLine($"Part 1: {Day23.Part1("./inputs/day23")}");
+Console.WriteLine($"Part 2: {Day23.Part2("./inputs/day23")}");
+
 
 Console.WriteLine("Have a good one! 👋");

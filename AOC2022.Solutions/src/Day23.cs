@@ -11,6 +11,11 @@ public class Day23
         return Solve(inputFilePath, 10);
     }
 
+    public static int Part2(string inputFilePath)
+    {
+        return Solve2(inputFilePath, int.MaxValue);
+    }
+
     public static int Solve(string inputFilePath, int rounds)
     {
         var lines = File.ReadAllLines(inputFilePath);
@@ -59,6 +64,60 @@ public class Day23
 
         var solution = area - elves.Count;
         return solution;
+    }
+
+    public static int Solve2(string inputFilePath, int rounds)
+    {
+        var lines = File.ReadAllLines(inputFilePath);
+
+        var elves = new Dictionary<int, (int x, int y)>();
+
+        for (var y = 0; y < lines.Length; y++)
+        {
+            var line = lines[y];
+            for (var x = 0; x < line.Length; x++)
+            {
+                var character = line[x];
+                if (character == '#')
+                {
+                    elves.Add(elves.Count, (x, y));
+                }
+            }
+        }
+
+        Console.WriteLine($"--- Initial State ---");
+        Print(elves);
+        Console.WriteLine();
+
+        var proposedDirection = 0;
+        for (var currentRound = 1; currentRound <= rounds; currentRound++)
+        {
+            // considering where to move
+            var possibleMoves = GetPossibleMoves(elves, proposedDirection);
+
+            if (possibleMoves.Count > 0)
+            {
+                // actually moving
+                foreach (var move in possibleMoves)
+                {
+                    if (move.Value.Count == 1)
+                    {
+                        elves[move.Value[0]] = move.Key;
+                    }
+                }
+            }
+            else
+            {
+                return currentRound;
+            }
+
+            proposedDirection = (proposedDirection + 1) % 4;
+            Console.WriteLine($"--- Round: {currentRound} ---");
+            Print(elves);
+            Console.WriteLine();
+        }
+
+        return -1;
     }
 
     public static int GetRectangleArea(Dictionary<int, (int x, int y)> elves)
