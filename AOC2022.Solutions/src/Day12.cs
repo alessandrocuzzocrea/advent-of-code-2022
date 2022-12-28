@@ -2,22 +2,9 @@ namespace AOC2022.Solutions;
 
 public class Day12
 {
-    /* 
-    
-    - a lowest
-    - z highest
-    - one step
-    - up, right, down, left
-    - destination square can be at most one higher (eg: m -> n)
-    - S start
-    - E goal
-
-    */
-
     public static int Part1(string inputFilePath)
     {
         var lines = File.ReadAllLines(inputFilePath);
-        // var ans = new Solver(lines).solve();
         var ans = new Solver(lines).Solve2();
 
         return ans;
@@ -26,7 +13,6 @@ public class Day12
     public static int Part2(string inputFilePath)
     {
         var lines = File.ReadAllLines(inputFilePath);
-        // var ans = new Solver(lines).solve();
         var ans = new Solver(lines).Solve3();
 
         return ans;
@@ -100,14 +86,10 @@ public class Day12
 
         public bool CanMove(Direction curr, Direction dest/*, Direction[] visited*/)
         {
-            // if (!visited.ToList().Contains(dest))
-            // {
             if (dest.x >= 0 && dest.x < Width && dest.y >= 0 && dest.y < Height)
             {
-                // var currValue = maze[curr.y][curr.x];
                 var currValue = GetCharacter(curr.x, curr.y);
 
-                // var destValue = maze[dest.y][dest.x];
                 var destValue = GetCharacter(dest.x, dest.y);
 
                 if (currValue == 'S')
@@ -125,11 +107,11 @@ public class Day12
                     return true;
                 }
             }
-            // }
+
             return false;
         }
 
-        public List<Direction> GetPossibleDestinations(Direction curr/*, Direction[] visited*/)
+        public List<Direction> GetPossibleDestinations(Direction curr)
         {
             List<Direction> res = new();
 
@@ -237,18 +219,8 @@ public class Day12
             closedList = new List<Node>();
         }
 
-        public int solve()
-        {
-            char[,] footprints = new char[maze.Height, maze.Width];
-
-            return dfs(new Direction { x = maze.S.Item1, y = maze.S.Item2 }, Array.Empty<Direction>(), footprints, 0);
-        }
-
         public int Solve2()
         {
-            // char[,] footprints = new char[maze.Height, maze.Width];
-
-            // return dfs(new Direction { x = maze.S.Item1, y = maze.S.Item2 }, Array.Empty<Direction>(), footprints, 0);
             var startNode = new Node(maze.S.Item1, maze.S.Item2, 'S')
             {
                 OGChar = 'S'
@@ -284,18 +256,6 @@ public class Day12
                     neighbor.H = CalcH(neighbor, endNode);
                     neighbor.Parent = currentNode;
 
-                    // foreach (Node openNode in openList)
-                    // {
-                    //     if (neighbor.Equals(openNode) && neighbor.G > openNode.G)
-                    //     {
-                    //         continue;
-                    //     }
-                    //     else
-                    //     {
-                    //         // neighbor.Parent = currentNode;
-                    //         // openList.Add(neighbor);
-                    //     }
-                    // })
                     if (!openList.Contains(neighbor))
                     {
                         openList.Add(neighbor);
@@ -308,12 +268,6 @@ public class Day12
 
         public int AStar(Node startNode, Node endNode)
         {
-            // return dfs(new Direction { x = maze.S.Item1, y = maze.S.Item2 }, Array.Empty<Direction>(), footprints, 0);
-            // var startNode = new Node(maze.S.Item1, maze.S.Item2, 'S')
-            // {
-            //     OGChar = 'S'
-            // };
-
             startNode.G = 0;
             startNode.H = CalcH(startNode, endNode);
 
@@ -343,18 +297,6 @@ public class Day12
                     neighbor.H = CalcH(neighbor, endNode);
                     neighbor.Parent = currentNode;
 
-                    // foreach (Node openNode in openList)
-                    // {
-                    //     if (neighbor.Equals(openNode) && neighbor.G > openNode.G)
-                    //     {
-                    //         continue;
-                    //     }
-                    //     else
-                    //     {
-                    //         // neighbor.Parent = currentNode;
-                    //         // openList.Add(neighbor);
-                    //     }
-                    // })
                     if (!openList.Contains(neighbor))
                     {
                         openList.Add(neighbor);
@@ -374,7 +316,6 @@ public class Day12
 
             for (var i = 0; i < ANodes.Count; i++)
             {
-                // Console.WriteLine($"Progress {i}/{ANodes.Count}");
                 var startNode = ANodes[i];
                 openList.Clear();
                 closedList.Clear();
@@ -406,14 +347,10 @@ public class Day12
 
         public bool IsPossibleDestination2(Node curr, Node child)
         {
-            // if (!visited.ToList().Contains(dest))
-            // {
             if (child.x >= 0 && child.x < maze.Width && child.y >= 0 && child.y < maze.Height)
             {
-                // var currValue = maze[curr.y][curr.x];
                 var currValue = maze.GetCharacter(curr.x, curr.y);
 
-                // var destValue = maze[dest.y][dest.x];
                 var destValue = maze.GetCharacter(child.x, child.y);
 
                 child.OGChar = destValue;
@@ -433,7 +370,6 @@ public class Day12
                     return true;
                 }
             }
-            // }
             return false;
         }
 
@@ -472,51 +408,14 @@ public class Day12
             return res;
         }
 
-        public List<Direction> GetPossibleDestinations(Direction curr, Direction[] visited)
-        {
-            List<Direction> res = new();
-
-            // up
-            var up = new Direction { x = curr.x, y = curr.y - 1, dir = '^' };
-            if (IsPossibleDestination(curr, up, visited))
-            {
-                res.Add(up);
-            };
-
-            // right
-            var right = new Direction { x = curr.x + 1, y = curr.y, dir = '>' };
-            if (IsPossibleDestination(curr, right, visited))
-            {
-                res.Add(right);
-            };
-
-            // down
-            var down = new Direction { x = curr.x, y = curr.y + 1, dir = 'v' };
-            if (IsPossibleDestination(curr, down, visited))
-            {
-                res.Add(down);
-            };
-
-            // left
-            var left = new Direction { x = curr.x - 1, y = curr.y, dir = '<' };
-            if (IsPossibleDestination(curr, left, visited))
-            {
-                res.Add(left);
-            };
-
-            return res;
-        }
-
         public bool IsPossibleDestination(Direction curr, Direction dest, Direction[] visited)
         {
             if (!visited.ToList().Contains(dest))
             {
                 if (dest.x >= 0 && dest.x < maze.Width && dest.y >= 0 && dest.y < maze.Height)
                 {
-                    // var currValue = maze[curr.y][curr.x];
                     var currValue = maze.GetCharacter(curr.x, curr.y);
 
-                    // var destValue = maze[dest.y][dest.x];
                     var destValue = maze.GetCharacter(dest.x, dest.y);
 
                     if (currValue == 'S')
@@ -538,7 +437,7 @@ public class Day12
             return false;
         }
 
-        public int CalcH(Node current, Node end)
+        public static int CalcH(Node current, Node end)
         {
             return Math.Abs(current.x - end.x) + Math.Abs(current.y - end.y);
         }
@@ -587,14 +486,11 @@ public class Day12
                 return steps;
             }
 
-            // Console.WriteLine($"Visit x: {curr.x}, y: {curr.y}, steps:{steps}");
-
             if (steps >= 100_00)
             {
                 return int.MaxValue;
             }
 
-            // var possibleMoves = GetPossibleDestinations(curr, newVisited);
             var possibleMoves = maze.GetPossibleDestinations(curr);
 
             possibleMoves.RemoveAll(dir => newVisited.Contains(dir));
@@ -602,10 +498,6 @@ public class Day12
             List<int> dfsRes = new();
             foreach (var move in possibleMoves)
             {
-                // if (newVisited.Contains(move))
-                // {
-                //     continue;
-                // }
                 char[,] newFootprints = new char[maze.Height, maze.Width];
                 Array.Copy(footprints, newFootprints, maze.Width * maze.Height);
 
@@ -624,10 +516,5 @@ public class Day12
 
             return minz;
         }
-
-        // public List<Direction> FilterAlreadyVisited(List<Direction> moves)
-        // {
-        //     moves. 
-        // }
     }
 }
