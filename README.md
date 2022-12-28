@@ -24,3 +24,4 @@
 [Day 20: Grove Positioning System](AOC2022.Solutions/src/Day20.cs)  
 [Day 21: Monkey Math](AOC2022.Solutions/src/Day21.cs)  
 [Day 22: Monkey Map](AOC2022.Solutions/src/Day22.cs)  
+[Day 23: Unstable Diffusion](AOC2022.Solutions/src/Day23.cs)  
