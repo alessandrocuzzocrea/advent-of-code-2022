@@ -86,5 +86,7 @@ Console.WriteLine("--- Day 23: Unstable Diffusion  ---");
 Console.WriteLine($"Part 1: {Day23.Part1("./inputs/day23")}");
 Console.WriteLine($"Part 2: {Day23.Part2("./inputs/day23")}");
 
+Console.WriteLine("--- Day 24: Blizzard Basin  ---");
+Console.WriteLine($"Part 1: {Day24.Part1("./inputs/day24")}");
 
 Console.WriteLine("Have a good one! 👋");
