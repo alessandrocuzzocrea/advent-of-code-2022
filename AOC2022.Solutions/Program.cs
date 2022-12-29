@@ -89,4 +89,7 @@ Console.WriteLine($"Part 2: {Day23.Part2("./inputs/day23")}");
 Console.WriteLine("--- Day 24: Blizzard Basin  ---");
 Console.WriteLine($"Part 1: {Day24.Part1("./inputs/day24")}");
 
+Console.WriteLine("--- Day 25: Full of Hot Air  ---");
+Console.WriteLine($"Part 1: {Day25.Part1("./inputs/day25")}");
+
 Console.WriteLine("Have a good one! 👋");
