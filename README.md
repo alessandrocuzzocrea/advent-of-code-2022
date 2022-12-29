@@ -25,3 +25,5 @@
 [Day 21: Monkey Math](AOC2022.Solutions/src/Day21.cs)  
 [Day 22: Monkey Map](AOC2022.Solutions/src/Day22.cs)  
 [Day 23: Unstable Diffusion](AOC2022.Solutions/src/Day23.cs)  
+[Day 24: Blizzard Basin](AOC2022.Solutions/src/Day24.cs)  
+[Day 25: Full of Hot Air](AOC2022.Solutions/src/Day25.cs)  
